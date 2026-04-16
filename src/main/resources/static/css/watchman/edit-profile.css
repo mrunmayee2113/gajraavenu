@@ -1,0 +1,96 @@
+:root{
+    --gold:#c5a059;
+    --obsidian:#0a0a0b;
+    --card:#111;
+}
+
+body{
+    background:var(--obsidian);
+    color:white;
+    font-family: 'Montserrat', serif;
+}
+
+.title{
+    font-family: 'Cinzel', serif;
+    color:var(--gold);
+    text-align:center;
+    margin:45px 0;
+    letter-spacing:2px;
+
+}
+
+.edit-card{
+    background:var(--card);
+    border:1px solid rgba(197,160,89,0.3);
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    transition:0.4s;
+}
+
+.edit-card:hover{
+    border-color:var(--gold);
+}
+
+.profile-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:4px solid var(--gold);
+    object-fit:cover;
+    display:block;
+    margin: auto auto 15px;
+}
+
+.form-control{
+    background:#181818;
+    border:1px solid #333;
+    color:white;
+}
+
+.form-control:focus{
+    border-color:var(--gold);
+    box-shadow:none;
+    background:#181818;
+    color:white;
+}
+
+.form-label{
+    color:#ccc;
+}
+.form-control::placeholder {
+    color: #aaa !important;
+    opacity: 1;
+}
+.form-control {
+    color: white !important;
+}
+.btn-gold{
+    background:var(--gold);
+    border:none;
+    color:black;
+    font-weight:600;
+    padding:10px 25px;
+}
+
+.btn-gold:hover{
+    background:white;
+    color: #0a0a0b;
+}
+
+.btn-cancel{
+    border:1px solid #777;
+    color:#ccc;
+}
+
+.btn-cancel:hover{
+    background:#222;
+}
+
+.upload-text{
+    font-size:14px;
+    color:#aaa;
+    text-align:center;
+    margin-bottom:20px;
+}
+

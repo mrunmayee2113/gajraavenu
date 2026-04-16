@@ -1,0 +1,358 @@
+:root {
+    --gold: #c5a059;
+    --gold-light: #e2c275;
+    --gold-glow: rgba(197, 160, 89, 0.4);
+    --obsidian: #0a0a0b;
+    --white: #ffffff;
+    --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body {
+    background: var(--obsidian);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 85px;
+    overflow-x: hidden;
+
+}
+
+
+.navbar {
+    background: #0a0a0bfa;
+    border-bottom: 1px solid var(--gold);
+    padding: 24px 0;
+}
+/* Better hamburger visibility */
+.navbar-toggler {
+    border: 1px solid var(--gold);
+    padding: 5px 10px;
+}
+.navbar-collapse {
+    transition: all 0.3s ease;
+}
+/* Center menu in mobile */
+@media (max-width: 991px) {
+
+    .navbar-collapse {
+        background: #0a0a0b;
+        padding: 15px;
+        border-top: 1px solid var(--gold);
+    }
+
+    .nav-item-link {
+        display: block;
+        padding: 10px;
+        margin: 5px 0;
+    }
+
+    .role-badge {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: row;   /* keep in one line */
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.logo-text {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 3px;
+    color: var(--gold) !important;
+    font-weight: 800;
+    font-size: 28px;
+    transition: all 1s;
+
+}
+.logo-text:hover{
+    transform: scale(1.1);
+    text-shadow: 2px 2px 10px var(--gold-light);
+
+}
+
+.role-badge {
+    border: 1px solid var(--gold);
+    padding: 4px 11px;
+    font-size: 12px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    transition: all 1s;
+    border-radius:20px;
+    color:var(--gold);
+    animation: role-badge 2s infinite ease-in-out;
+}
+.role-badge:hover{
+    transform: scale(1.1);
+    background-color: #ffffff;
+    color: #ffa600;
+    font-weight: 900;
+    font-size: 13px;
+    border: 3px solid #c5a059;
+}
+.dropdown-menu {
+    border-radius: 12px;
+    padding: 10px 0;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background: var(--gold);
+    color: #000;
+}
+@keyframes role-badge {
+    0%{
+        opacity: 0.8;
+        font-weight: 500;
+        transform: scale(1);
+
+    }
+    100%{
+        opacity: 1;
+        font-weight: 600;
+        transform: scale(1.2);
+    }
+}
+.table-responsive {
+    overflow-x: auto;
+}
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.nav-item-link {
+    display: inline-block;
+    color: rgba(255,255,255,0.7) !important;
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-item-link:hover {
+        color: var(--gold) !important;
+        font-weight: 700;
+        transform: scale(1.2);
+        text-decoration:  underline;
+        text-shadow: 2px 2px 10px var(--gold-light);
+        text-underline-offset: 6px;
+    }
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba%28255,255,255,0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.profile-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+}
+
+.nav-item-link i{
+    color: var(--gold);
+}
+
+
+
+.profile-box img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.profile-box img:hover{
+    transform: scale(1.1);
+}
+
+
+.hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background:
+            linear-gradient(to right, rgba(10,10,11,0.9), rgba(10,10,11,0.6)),
+            url('../../images/watchman/img.png') center;
+
+    background-size: cover;
+    padding: 60px 20px;
+}
+
+.glow-text{
+    font-family: 'Cinzel', serif;
+    font-size: 64px;
+    letter-spacing: 2px;
+    padding: 0 20px;
+    text-shadow: 0 0 20px rgba(197,160,89,0.2);
+    animation: hero_title 4s ease-in-out infinite alternate;
+}
+@keyframes hero_title {
+    0%{
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(197,160,89,0.3);
+    }
+    100%{
+        transform: scale(1.06);
+        text-shadow: 0 0 20px rgba(197,160,89,0.8);
+    }
+}
+
+.hero p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: #000;
+    padding: 12px 30px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-gold:hover {
+    background: white;
+}
+
+/* ================= SECTION TITLE ================= */
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+/* ================= STATS ================= */
+
+.stat-box {
+    background: #111;
+    border: 1px solid rgba(197,160,89,0.3);
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-transform:uppercase ;
+    transition:  all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.stat-box:hover {
+    transform: translateY(-8px);
+    border: 1px solid var(--gold);
+    box-shadow: 0 15px 40px rgba(197,160,89,0.2);
+}
+.stat-box:hover .stat-number{
+    transform: scale(1.2);
+}
+.stat-number {
+    font-family: 'Cinzel', serif;
+    font-size: 34px;
+    color: var(--gold);
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+    background: #111;
+    padding: 20px;
+    border: 1px solid rgba(197,160,89,0.3);
+}
+
+.table {
+    color: white;
+}
+
+.table th {
+    color: var(--gold);
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.card-filter{
+    cursor:pointer;
+}
+/* ================= EMERGENCY ================= */
+
+.emergency {
+    background: #2b0000;
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: 60px;
+    border-bottom: 1px solid red;
+    border-top: 1px solid red;
+}
+
+.emergency button {
+    background: red;
+    border: none;
+    padding: 15px 40px;
+    font-weight: bold;
+    color: white;
+}
+.emergency button:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.849);
+}
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .hero h1 {
+        font-size: 32px;
+    }
+    .role-badge{
+        display: none;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .stat-number {
+        font-size: 26px;
+    }
+
+    .emergency button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .table td, .table th {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+@media (max-width: 768px) {
+    .glow-text {
+        font-size: 28px;
+    }
+}
+@media (max-width: 768px) {
+    .btn-outline-warning {
+        width: 100%;
+    }
+}

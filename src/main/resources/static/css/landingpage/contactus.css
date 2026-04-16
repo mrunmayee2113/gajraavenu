@@ -1,0 +1,157 @@
+
+:root {
+    --gold: #c5a059;
+    --gold-light: #e2c275;
+    --obsidian: #0a0a0b;
+    --white: #ffffff;
+    --transition-luxury: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(rgba(10, 10, 11, 0.85), rgba(10, 10, 11, 0.95)),
+    url('../../images/landingpage/gajraavenu.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 16px;
+    color: var(--white);
+}
+
+/* BRAND */
+.brand {
+    margin-bottom: 30px;
+    text-align: center;
+    animation: fadeInDown 0.8s ease;
+}
+.brand h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 5px;
+
+}
+.brand p {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* GLASS CARD */
+.auth-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 2px;
+    padding: 45px;
+    max-width: 850px; /* Slightly wider for the two-column layout */
+    width: 100%;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    animation: fadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* FORM ELEMENTS */
+.form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0px;
+    padding: 14px;
+    color: var(--white);
+    transition: var(--transition-luxury);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+    color: var(--white);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+}
+
+/* BUTTON */
+.btn-main {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 0px;
+    padding: 14px;
+    font-weight: 700;
+    color: var(--obsidian);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-luxury);
+}
+
+.btn-main:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: #0a0a0b;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+}
+
+/* CONTACT INFO */
+.contact-info li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    transition: var(--transition-luxury);
+}
+
+.contact-info li:hover {
+    transform: translateX(10px);
+}
+
+.contact-info i {
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-right: 1.2rem;
+    margin-top: -4px;
+}
+
+.contact-info p {
+    margin-bottom: 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+}
+
+/* LINKS */
+.link {
+    color: var(--gold);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-luxury);
+    font-size: 13px;
+}
+
+.link:hover {
+    color: var(--white);
+    text-shadow: 0 0 10px var(--gold);
+}
+
+.text-muted {
+    color: rgba(255,255,255,0.5) !important;
+}
+
+@media (max-width: 991px) {
+    .auth-card { padding: 30px; }
+    .contact-info { margin-top: 2rem; border-top: 1px solid rgba(197, 160, 89, 0.2); }
+}

@@ -1,0 +1,165 @@
+:root {
+    --gold: #c5a059;
+    --gold-light: #e2c275;
+    --obsidian: #0a0a0b;
+    --white: #ffffff;
+    --transition-luxury: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--obsidian);
+    /* Matching the landing page background style */
+    background: linear-gradient(rgba(10, 10, 11, 0.85), rgba(10, 10, 11, 0.95)),
+    url('../../images/landingpage/gajraavenu.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    color: var(--white);
+}
+
+/* BRAND */
+.brand {
+    margin-bottom: 30px;
+    text-align: center;
+    animation: fadeInDown 0.8s ease;
+}
+.brand h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 5px;
+}
+.brand p {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* GLASS CARD */
+.auth-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 4px; /* Architectural sharp corners */
+    padding: 45px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    animation: fadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* INPUTS */
+.form-label {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0px; /* Matching landing page button style */
+    padding: 14px;
+    color: var(--white);
+    transition: var(--transition-luxury);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+    color: var(--white);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+}
+
+/* BUTTON */
+.btn-main {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 0px;
+    padding: 14px;
+    font-weight: 700;
+    color: var(--obsidian);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-luxury);
+    margin-top: 10px;
+}
+
+.btn-main:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--obsidian);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+}
+
+/* LINKS */
+.link {
+    color: var(--gold);
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition-luxury);
+    font-size: 14px;
+}
+
+.link:hover {
+    color: var(--white);
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+}
+
+/* CHECKBOX */
+.form-check-input {
+    background-color: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--gold);
+    border-color: var(--gold);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.2);
+    border-color: var(--gold);
+}
+
+.text-muted {
+    color: rgba(255,255,255,0.5) !important;
+}
+
+/* Validation Colors */
+.is-invalid {
+    border-color: #ff4d4d !important;
+}
+.invalid-feedback {
+    color: #ff4d4d;
+    font-size: 12px;
+}

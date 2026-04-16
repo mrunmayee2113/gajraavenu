@@ -1,0 +1,162 @@
+:root {
+    --gold: #c5a059;
+    --gold-light: #e2c275;
+    --obsidian: #0a0a0b;
+    --white: #ffffff;
+    --transition-luxury: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(rgba(10, 10, 11, 0.85), rgba(10, 10, 11, 0.95)),
+    url('../../images/landingpage/gajraavenu.jpg');  /* Ensure this matches your asset name */
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 16px;
+    color: var(--white);
+    background-position: center center;
+    justify-content: center;
+}
+
+/* BRAND */
+.brand {
+    margin-bottom: 30px;
+    text-align: center;
+    animation: fadeInDown 0.8s ease;
+}
+.brand h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 5px;
+}
+.brand p {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* GLASS CARD */
+.auth-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 2px; /* Architectural sharp corners */
+    padding: 40px;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    animation: fadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* FORM ELEMENTS */
+.form-label {
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0px;
+    padding: 12px 15px;
+    color: var(--white);
+    transition: var(--transition-luxury);
+}
+
+.form-select {
+    /* Corrected: Added 'no-repeat' and positioned it to the right */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23c5a059' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+}
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+    color: var(--white);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 14px;
+}
+
+/* STRENGTH INDICATOR */
+.strength {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+.strength.weak { color: #ff4d4d; }
+.strength.medium { color: #e2c275; }
+.strength.strong { color: #16a34a; }
+
+/* BUTTON */
+.btn-main {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 0px;
+    padding: 15px;
+    font-weight: 700;
+    color: var(--obsidian);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-luxury);
+    margin-top: 20px;
+}
+
+.btn-main:hover {
+    background: var(--white);
+    border-color: var(--white);
+    transform: translateY(-3px);
+    color: #0a0a0b;
+    box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+}
+
+/* LINKS */
+.link {
+    color: var(--gold);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-luxury);
+    font-size: 13px;
+}
+
+.link:hover {
+    color: var(--white);
+    text-shadow: 0 0 10px var(--gold);
+}
+
+.text-muted {
+    color: rgba(255,255,255,0.5) !important;
+}
+
+/* Validation Colors */
+.is-invalid { border-color: #ff4d4d !important; }
+.invalid-feedback { color: #ff4d4d; font-size: 11px; }
+
+option { background: var(--obsidian); color: var(--white); }

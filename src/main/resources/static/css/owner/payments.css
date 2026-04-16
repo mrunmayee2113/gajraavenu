@@ -1,0 +1,138 @@
+:root{
+    --gold:#c5a059;
+    --gold-light:#e2c275;
+    --obsidian:#0a0a0b;
+    --card:#111111;
+    --white:#ffffff;
+    --transition: all 0.3s ease;
+}
+
+body{
+    background:var(--obsidian);
+    color:var(--white);
+    font-family:'Montserrat',sans-serif;
+}
+
+/* HEADER */
+.service-header{
+    background-size:cover;
+    background-position:center;
+    height: 160px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:
+            linear-gradient(to right, rgba(10,10,11,0.85), rgba(10,10,11,0.6)),
+            url('../../images/owner/img.jpg');
+    background-size:cover;
+    background-position:center;
+    text-align:center;
+
+}
+
+.service-header h1{
+    font-family:'Cinzel',serif;
+    font-size:48px;
+    color:var(--gold);
+    letter-spacing:3px;
+    margin: 0;
+}
+
+/* Cards */
+.payment-card{
+    background:var(--card);
+    border:1px solid rgba(197,160,89,0.3);
+    border-radius:16px;
+    padding:25px;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.payment-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+.amount{
+    font-size:28px;
+    color:var(--gold);
+    font-weight:600;
+}
+
+/* Button */
+.btn-gold{
+    background:var(--gold);
+    color:black;
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+    font-weight:700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+.btn-gold:hover{
+    background:var(--gold-light);
+    color: black;
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+}
+
+/* Table Styling - Gold on White Header */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(197,160,89,0.2);
+}
+
+.table{
+    background: white;
+    margin-bottom: 0;
+}
+
+.table thead tr {
+    background: var(--gold) !important;
+}
+
+.table thead th {
+    color: black !important;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    border: none;
+    padding: 15px;
+}
+
+.table td {
+    color: black;
+    font-weight: 500;
+    padding: 15px;
+    vertical-align: middle;
+    border-color: #eee;
+}
+
+/* Receipt Button in Table */
+.btn-receipt {
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    background: transparent;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-receipt:hover {
+    background: var(--gold);
+    color: black;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+}

@@ -1,0 +1,68 @@
+:root{
+    --gold:#c5a059;
+    --bg:#0a0a0b;
+}
+body{
+    background:var(--bg);
+    color:white;
+    font-family: 'Montserrat', serif;
+}
+
+/* HEADER (SAME STYLE) */
+.header{
+    height: 160px;              /* Fixed smaller height */
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:
+            linear-gradient(to right, rgba(10,10,11,0.85), rgba(10,10,11,0.6)),
+            url('../../images/watchman/gajraavenu.jpg') center;
+    background-size:cover;
+    text-align:center;
+}
+
+.header h1{
+    font-family:'Cinzel',serif;
+    color:var(--gold);
+}
+
+/* CARD */
+.visitor-card{
+    background:#111;
+    border:1px solid rgba(197,160,89,0.4);
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+}
+
+.visitor-card:hover{
+    transform:translateX(6px);
+    background:rgba(147, 121, 74, 0.13);
+}
+
+.badge-expected{
+    background:#ffc107;
+    color:black;
+    padding:5px 12px;
+    border-radius:20px;
+    font-weight: 600;
+}
+
+.btn-visited{
+    background-color:greenyellow;
+    border:none;
+    padding:6px 14px;
+    font-weight: 800;
+    color: black;
+}
+
+.btn-visited:hover{
+    background:white;
+    color: black;
+}

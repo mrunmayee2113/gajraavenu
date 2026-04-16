@@ -1,0 +1,74 @@
+:root{
+    --gold:#c5a059;
+    --obsidian:#0a0a0b;
+}
+
+body{
+    background:var(--obsidian);
+    color:white;
+    font-family: 'Montserrat', serif;
+}
+
+.title{
+    font-family: 'Cinzel', serif;
+    color:var(--gold);
+    text-align:center;
+    margin:50px 0;
+    letter-spacing:2px;
+}
+
+.profile-card{
+    background:#111;
+    border:1px solid rgba(197,160,89,0.3);
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    text-align:center;
+    transition:0.4s;
+}
+
+.profile-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--gold);
+}
+
+.profile-img{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    border:4px solid var(--gold);
+    object-fit:cover;
+    margin-bottom:20px;
+}
+
+.role{
+    color:#aaa;
+    margin-bottom:25px;
+}
+
+.info-box{
+    background:#181818;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.info-title{
+    color:#bbb;
+}
+
+.btn-gold{
+    background:var(--gold);
+    border:none;
+    color:black;
+    font-weight:600;
+    padding:10px 25px;
+    margin-top:20px;
+}
+
+.btn-gold:hover{
+    background:white;
+    color: #0a0a0b;
+}

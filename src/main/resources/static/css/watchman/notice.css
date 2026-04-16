@@ -1,0 +1,62 @@
+:root {
+    --gold: #c5a059;
+    --bg: #0a0a0b;
+}
+
+body{
+    font-family:'Montserrat',sans-serif;
+    background: var(--bg);
+    color:white;
+}
+
+/* SAME HEADER */
+
+/* HEADER (SAME STYLE) */
+.header{
+    height: 160px;              /* Fixed smaller height */
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:
+            linear-gradient(to right, rgba(10,10,11,0.85), rgba(10,10,11,0.6)),
+            url('../../images/watchman/gajraavenu.jpg') center;
+    background-size:cover;
+    text-align:center;
+}
+
+.header h1{
+    font-family:'Cinzel',serif;
+    color:var(--gold);
+}
+
+/* CARD STYLE */
+.update-card{
+    background:#111;
+    border:1px solid rgba(197,160,89,0.3);
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+.update-card:hover{
+    transform:translateX(10px);
+    background:rgba(147, 121, 74, 0.13);
+    transition: all 0.5s;
+}
+.update-card h6{
+    color:var(--gold);
+}
+
+/* BUTTON */
+.btn-gold{
+    background:var(--gold);
+    border:none;
+    font-weight: 700;
+    padding: 10px 20px;
+
+}
+.btn-gold:hover{
+    color: #111;
+    background-color: white;
+}

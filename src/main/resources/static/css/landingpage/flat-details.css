@@ -1,0 +1,114 @@
+
+:root{
+    --gold:#c5a059;
+    --gold-light:#e2c275;
+    --dark:#0a0a0b;
+    --card:#111;
+}
+
+body{
+    background:var(--dark);
+    color:white;
+    font-family:'Montserrat';
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    padding:40px 0;
+}
+
+.header h1{
+    font-family:'Cinzel';
+    color:var(--gold);
+    letter-spacing:4px;
+}
+
+/* CAROUSEL IMAGE SIZE FIX */
+.carousel{
+    margin-bottom:25px;
+    overflow:hidden;
+    border-radius:12px;
+}
+
+/* CAROUSEL SIZE CONTROL */
+
+.carousel-wrapper{
+    max-width:85%;     /* control width here */
+    margin:auto;         /* center carousel */
+}
+
+.carousel-item img{
+    height:420px;        /* control height */
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* DETAILS CARD */
+
+.details-card{
+    background:var(--card);
+    padding:30px;
+    border-radius:12px;
+    margin-top:30px;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.details-card h3{
+    color:var(--gold);
+}
+
+/* AMENITIES */
+
+.amenities{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+
+.amenity{
+    background:#1a1a1a;
+    padding:10px;
+    border-radius:6px;
+}
+
+/* CONTACT CARD */
+
+.contact-card{
+    background:#1a1a1a;
+    padding:25px;
+    border-radius:10px;
+    margin-top:30px;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.btn-main{
+    background:var(--gold);
+    border:none;
+    color:black;
+    font-weight:bold;
+}
+
+.btn-main:hover{
+    background:white;
+    color: #0a0a0b;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:6px 18px;
+    border-radius:6px;
+    margin-bottom:20px;
+}
+
+.back-btn:hover{
+    background:var(--gold);
+    color:black;
+}
+

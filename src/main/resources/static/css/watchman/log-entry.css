@@ -1,0 +1,91 @@
+:root {
+    --gold: #c5a059;
+    --gold-light: #e2c275;
+    --obsidian: #0a0a0b;
+    --white: #ffffff;
+}
+
+body {
+    background: var(--obsidian);
+    color: var(--white);
+    background: linear-gradient(rgba(10, 10, 11, 0.85), rgba(10, 10, 11, 0.95)),
+    url('../../images/watchman/gajraavenu.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Form Card */
+.form-label{
+    font-weight: bold;
+}
+.form-card {
+    background: #111;
+    border: 1px solid rgba(197,160,89,0.3);
+    padding: 40px;
+    border-radius: 10px;
+}
+.required::after {
+    content: "*";
+    color: var(--gold);
+    font-size: 12px;
+    vertical-align: top;
+    margin-left: 3px;
+}
+.form-control, .form-select {
+    background: #000;
+    border: 1px solid rgba(197,160,89,0.3);
+    color: white;
+}
+
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+    color: var(--white);
+    outline: none;
+}
+
+/* Placeholder Color */
+::placeholder {
+    color: rgba(187, 187, 187, 0.7) !important;
+    opacity: 1;
+}
+
+.form-control::placeholder,
+textarea::placeholder {
+    color: rgba(187, 187, 187, 0.7)
+}
+
+.form-select {
+    color: rgba(255,255,255,0.6);
+}
+
+.form-select option {
+    background: #000;
+    color: white;
+}
+.btn-gold {
+    background: var(--gold);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+}
+
+.btn-gold:hover {
+    background: var(--white);
+    color: #000;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 3px;
+    color: var(--gold) !important;
+    font-weight: 800;
+    font-size: 45px;
+    margin: 20px;
+    text-align: center;
+}
