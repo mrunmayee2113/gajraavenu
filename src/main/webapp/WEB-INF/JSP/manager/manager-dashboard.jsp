@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manager/manager-dashboard.css">
-
-
 </head>
 
 <body>
@@ -85,31 +85,29 @@
            <div class="col-12 col-md-4">
                 <div class="card-box">
                     <h5>Total Residents</h5>
-                    <h3>56</h3>
+                    <h3>${stats.totalResidents}</h3>
                 </div>
             </div>
            <div class="col-12 col-md-4">
                 <div class="card-box">
                     <h5>Active Complaints</h5>
-                    <h3>4</h3>
+                    <h3>${stats.activeComplaints}</h3>
                 </div>
             </div>
           <div class="col-12 col-md-4">
                 <div class="card-box">
                     <h5>Security Alerts</h5>
-                    <h3>2</h3>
+                    <h3>${alertCount}</h3>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card-box">
-                    <h5>Pending Payments</h5>
-                    <h3>8</h3>
-                </div>
-            </div>
+
         </div>
 
         <div class="table-wrapper">
-            <h5 class="mb-3" style="font-family:'Cinzel'; color:var(--gold);">Recent Complaints</h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 style="font-family:'Cinzel'; color:#d4af37; margin:0;">Recent Complaints</h5>
+                <a href="${pageContext.request.contextPath}/manager/complaints" class="btn btn-sm btn-outline-warning">View All</a>
+            </div>
 
             <table class="table table-hover">
                 <thead>
@@ -121,18 +119,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>A-203</td>
-                    <td>Water Leakage</td>
-                    <td><span class="badge-warning">Pending</span></td>
-                    <td>21 Feb 2026</td>
-                </tr>
-                <tr>
-                    <td>B-101</td>
-                    <td>Lift Maintenance</td>
-                    <td><span class="badge-success">Resolved</span></td>
-                    <td>20 Feb 2026</td>
-                </tr>
+                <c:choose>
+                    <c:when test="${not empty allComplaints}">
+                        <c:forEach var="c" items="${allComplaints}" begin="0" end="4">
+                            <tr>
+                                <td>${c.location}</td>
+                                <td>${c.category}</td>
+                                <td>
+                                    <span class="badge ${c.status == 'Pending' ? 'bg-danger' : 'bg-warning text-dark'}">
+                                        ${c.status}
+                                    </span>
+                                </td>
+                                <td>${c.date}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">No recent complaints found.</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
                 </tbody>
             </table>
         </div>

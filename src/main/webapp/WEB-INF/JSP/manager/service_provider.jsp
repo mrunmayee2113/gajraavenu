@@ -60,6 +60,7 @@
                     <a href="tel:${provider.contact}" class="call-btn"><i class="fa-solid fa-phone me-1"></i> Call</a>
 
                     <div style="position: absolute; bottom: 15px; right: 15px; display: flex; gap: 12px;">
+
                         <a href="javascript:void(0)"
                            onclick="openEditModal('${provider.id}', '${provider.name}', '${provider.serviceType}', '${provider.contact}', '${provider.location}')"
                            style="color: #c5a059; text-decoration: none; font-size: 16px;"
@@ -67,12 +68,13 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
 
-                        <a href="/deleteProvider?id=${provider.id}"
+                        <a href="${pageContext.request.contextPath}/manager/deleteProvider/${provider.id}"
                            onclick="return confirm('Are you sure you want to delete this service provider?')"
                            style="color: #a17b1d; text-decoration: none; font-size: 16px;"
                            title="Delete Provider">
                             <i class="fa-solid fa-trash-can"></i>
                         </a>
+
                     </div>
                 </div>
             </c:forEach>
@@ -97,7 +99,7 @@
     <div style="background:#111111; padding:35px 30px; border-radius:20px; border:1px solid #7c622d; text-align:center; min-width:450px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
         <h5 id="modalTitle" style="margin-bottom:25px; font-family: 'Cinzel', serif; color:#c5a059; letter-spacing:1px; font-size:16px; text-transform: uppercase;">Add Service Provider</h5>
 
-        <form action="/saveProvider" method="POST">
+        <form action="${pageContext.request.contextPath}/manager/saveProvider" method="POST">
             <input type="hidden" name="id" id="providerId">
 
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">

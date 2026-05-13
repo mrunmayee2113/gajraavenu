@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manager/complaints.css">
-
 </head>
 
 <body>
@@ -27,23 +28,17 @@
     <a href="/" onclick="confirmLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
 </div>
 
-
 <div class="content">
-
-    <h1 style="margin-bottom:30px;">COMPLAINTS OVERVIEW</h1>
+    <h1 style="margin-bottom:30px; font-family: 'Cinzel'; color: white;">COMPLAINTS OVERVIEW</h1>
 
     <div class="cards">
         <div class="card">
             <h3>Total Complaints</h3>
-            <h2 id="totalCount" th:text="${totalCount}">0</h2>
+            <h2 id="totalCount">${totalCount}</h2>
         </div>
         <div class="card">
             <h3>Active</h3>
-            <h2 id="activeCount" th:text="${activeCount}">0</h2>
-        </div>
-        <div class="card">
-            <h3>Resolved</h3>
-            <h2 id="resolvedCount" th:text="${resolvedCount}">0</h2>
+            <h2 id="activeCount">${activeCount}</h2>
         </div>
     </div>
 
@@ -54,37 +49,36 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Flat</th>
-                    <th>Resident</th>
+                    <th>Flat/Location</th>
                     <th>Category</th>
+                    <th>Description</th>
                     <th>Status</th>
-                    <th>Assigned To</th>
                     <th>Date</th>
                 </tr>
                 </thead>
                 <tbody id="complaintsTableBody">
-                <tr th:each="comp : ${allComplaints}">
-                    <td th:text="'C' + ${comp.id}">C102</td>
-                    <td th:text="${comp.flatNumber}">B-204</td>
-                    <td th:text="${comp.residentName != null ? comp.residentName : 'Resident'}">Anita</td>
-                    <td th:text="${comp.category}">Plumbing</td>
-                    <td>
-                        <div class="status-wrapper">
-                            <button class="status"
-                                    th:classappend="${comp.status == 'Pending' ? 'status-pending' : (comp.status == 'In Progress' ? 'status-in-progress' : 'status-resolved')}"
-                                    onclick="toggleStatusDropdown(this)">
-                                <span th:text="${comp.status}">Pending</span> <i class="fa fa-caret-down"></i>
-                            </button>
-                            <div class="status-dropdown">
-                                <button th:onclick="'changeStatus(this, ' + ${comp.id} + ', \'Pending\')'">Pending</button>
-                                <button th:onclick="'changeStatus(this, ' + ${comp.id} + ', \'In Progress\')'">In Progress</button>
-                                <button th:onclick="'changeStatus(this, ' + ${comp.id} + ', \'Resolved\')'">Resolved</button>
+                <c:forEach var="comp" items="${allComplaints}">
+                    <tr id="row-${comp.id}">
+                        <td>C${comp.id}</td>
+                        <td>${comp.location}</td>
+                        <td>${comp.category}</td>
+                        <td>${comp.description}</td>
+                        <td>
+                            <div class="status-wrapper">
+                                <button class="status ${comp.status == 'Pending' ? 'status-pending' : (comp.status == 'In Progress' ? 'status-in-progress' : 'status-resolved')}"
+                                        onclick="toggleStatusDropdown(this)">
+                                    <span>${comp.status}</span> <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="status-dropdown">
+                                    <button onclick="changeStatus(this, ${comp.id}, 'Pending')">Pending</button>
+                                    <button onclick="changeStatus(this, ${comp.id}, 'In Progress')">In Progress</button>
+                                    <button onclick="changeStatus(this, ${comp.id}, 'Resolved')">Resolved</button>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td th:text="${comp.assignedTo != null ? comp.assignedTo : 'Unassigned'}">Ramesh</td>
-                    <td th:text="|${comp.dateFiled.dayOfMonth} ${comp.dateFiled.month} ${comp.dateFiled.year}|"></td>
-                </tr>
+                        </td>
+                        <td>${comp.date}</td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -98,7 +92,6 @@
 <div id="logoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:1000;">
     <div style="background:#111111; padding:35px 30px; border-radius:20px; border:1px solid #7c622d; text-align:center; min-width:440px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
         <h5 style="margin-bottom:30px; font-family: 'Cinzel', serif; color:#c5a059; letter-spacing:1px; font-size:16px; text-transform: uppercase;">Are you sure you want to logout?</h5>
-
         <div style="display:flex; justify-content:center; gap:15px;">
             <button onclick="logout()" style="padding:10px 30px; background:#a17b1d; color:#111; border:none; border-radius:6px; cursor:pointer; font-family:'Montserrat', sans-serif; font-weight: 500; font-size:14px; min-width:80px;">Yes</button>
             <button onclick="closeModal()" style="padding:10px 25px; background:transparent; color:#c5a059; border:1px solid #443515; border-radius:6px; cursor:pointer; font-family:'Montserrat', sans-serif; font-weight: 500; font-size:14px; min-width:80px;">Cancel</button>
@@ -106,6 +99,7 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function confirmLogout(e){
         e.preventDefault();
@@ -129,11 +123,33 @@
         dropdown.style.flexDirection='column';
     }
 
-    function changeStatus(el, status){
-        const btn = el.closest('.status-wrapper').querySelector('.status');
-        btn.className = 'status ' + status;
-        btn.innerHTML = el.textContent + ' <i class="fa fa-caret-down"></i>';
-        el.parentElement.style.display = 'none';
+    /**
+     * UPDATED: Handles real-time UI updates and Auto-Deletion logic
+     */
+    function changeStatus(el, complaintId, newStatus) {
+        const params = new URLSearchParams();
+        params.append('id', complaintId);
+        params.append('status', newStatus);
+
+        fetch('${pageContext.request.contextPath}/manager/updateComplaintStatus', {
+            method: 'POST',
+            body: params
+        })
+        .then(response => response.text())
+        .then(data => {
+            if(data === "DELETED") {
+                // Visual feedback for resolution and automatic removal
+                alert("Complaint marked as Resolved and removed from active records.");
+                $("#row-" + complaintId).fadeOut(600, function() {
+                    location.reload();
+                });
+            } else if(data === "SUCCESS") {
+                // Normal status update (Pending or In Progress)
+                location.reload();
+            } else {
+                alert("Update failed. Please check the server logs.");
+            }
+        });
     }
 
     window.addEventListener('click', function(e){
@@ -141,75 +157,6 @@
             document.querySelectorAll('.status-dropdown').forEach(d=>d.style.display='none');
         }
     });
-    // Call this function when a Resident successfully hits "Submit" on a complaint
-    function addComplaintDynamically(complaintData) {
-        const tableBody = document.getElementById("complaintsTableBody");
-
-        // Formulate a beautiful date like "18 Feb 2026"
-        const date = new Date(complaintData.dateFiled);
-        const formattedDate = date.toLocaleDateString('en-GB', {
-            day: 'numeric', month: 'short', year: 'numeric'
-        });
-
-        // HTML structure matching your precise design
-        const newRow = `
-        <tr>
-            <td>C${complaintData.id}</td>
-            <td>${complaintData.flatNumber}</td>
-            <td>${complaintData.residentName}</td>
-            <td>${complaintData.category}</td>
-            <td>
-                <div class="status-wrapper">
-                    <button class="status status-pending" onclick="toggleStatusDropdown(this)">Pending <i class="fa fa-caret-down"></i></button>
-                    <div class="status-dropdown">
-                        <button onclick="changeStatus(this, ${complaintData.id}, 'Pending')">Pending</button>
-                        <button onclick="changeStatus(this, ${complaintData.id}, 'In Progress')">In Progress</button>
-                        <button onclick="changeStatus(this, ${complaintData.id}, 'Resolved')">Resolved</button>
-                    </div>
-                </div>
-            </td>
-            <td>Unassigned</td>
-            <td>${formattedDate}</td>
-        </tr>`;
-
-        // Prepend (add at the very top) the new complaint
-        tableBody.insertAdjacentHTML('afterbegin', newRow);
-
-        // Update the metric counters instantly
-        document.getElementById('totalCount').innerText = parseInt(document.getElementById('totalCount').innerText) + 1;
-        document.getElementById('activeCount').innerText = parseInt(document.getElementById('activeCount').innerText) + 1;
-    }
-
-    // Modernized function to hit your backend & update counters when managers shift status
-    function changeStatus(el, complaintId, newStatus) {
-        const btn = el.closest('.status-wrapper').querySelector('.status');
-        const previousStatus = btn.innerText.trim();
-
-        // Hit background API to update database status
-        fetch(`/api/updateComplaintStatus?id=${complaintId}&status=${newStatus}`, { method: 'POST' })
-            .then(response => {
-                if(response.ok) {
-                    // Update visuals
-                    const statusClass = 'status-' + newStatus.toLowerCase().replace(" ", "-");
-                    btn.className = 'status ' + statusClass;
-                    btn.innerHTML = newStatus + ' <i class="fa fa-caret-down"></i>';
-                    el.parentElement.style.display = 'none';
-
-                    // Recalculate Dashboard counters
-                    const activeEl = document.getElementById('activeCount');
-                    const resolvedEl = document.getElementById('resolvedCount');
-
-                    if (previousStatus !== "Resolved" && newStatus === "Resolved") {
-                        activeEl.innerText = parseInt(activeEl.innerText) - 1;
-                        resolvedEl.innerText = parseInt(resolvedEl.innerText) + 1;
-                    } else if (previousStatus === "Resolved" && newStatus !== "Resolved") {
-                        activeEl.innerText = parseInt(activeEl.innerText) + 1;
-                        resolvedEl.innerText = parseInt(resolvedEl.innerText) - 1;
-                    }
-                }
-            });
-    }
-
 </script>
 
 </body>

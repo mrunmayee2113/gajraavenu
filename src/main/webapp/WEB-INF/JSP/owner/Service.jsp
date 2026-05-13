@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,16 +39,20 @@
             </h2>
             <div id="electrician" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
                 <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="provider-name">Rajesh Electrical Works</div>
-                            <div class="rating">4.8 <i class="fa-solid fa-star"></i></div>
-                        </div>
-                        <div>
-                            <a href="tel:9876543210" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
-                            <a href="https://wa.me/919876543210" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
-                        </div>
-                    </div>
+                    <c:forEach var="provider" items="${allProviders}">
+                        <c:if test="${provider.serviceType.equalsIgnoreCase('Electrician')}">
+                            <div class="provider-row d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <div class="provider-name">${provider.name}</div>
+                                    <small class="text-white-50">${provider.location}</small>
+                                </div>
+                                <div>
+                                    <a href="tel:${provider.contact}" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="https://wa.me/91${provider.contact}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -60,16 +65,20 @@
             </h2>
             <div id="plumber" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
                 <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="provider-name">AquaFix Plumbing</div>
-                            <div class="rating">4.7 <i class="fa-solid fa-star"></i></div>
-                        </div>
-                        <div>
-                            <a href="tel:9876543210" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
-                            <a href="https://wa.me/919876543210" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
-                        </div>
-                    </div>
+                    <c:forEach var="provider" items="${allProviders}">
+                        <c:if test="${provider.serviceType eq 'Plumber'}">
+                            <div class="provider-row d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <div class="provider-name">${provider.name}</div>
+                                    <small class="text-white-50">${provider.location}</small>
+                                </div>
+                                <div>
+                                    <a href="tel:${provider.contact}" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="https://wa.me/91${provider.contact}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -82,76 +91,20 @@
             </h2>
             <div id="cleaning" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
                 <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="provider-name">ShinePro Cleaners</div>
-                            <div class="rating">4.8 <i class="fa-solid fa-star"></i></div>
-                        </div>
-                        <div>
-                            <a href="tel:9123987654" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
-                            <a href="https://wa.me/919123987654" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item service-group">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#painter">
-                    <i class="fa-solid fa-palette me-2"></i> Painter
-                </button>
-            </h2>
-            <div id="painter" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
-                <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="provider-name">ColorCraft Painters</div>
-                            <div class="rating">4.7 <i class="fa-solid fa-star"></i></div>
-                        </div>
-                        <div>
-                            <a href="tel:9345678901" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
-                            <a href="https://wa.me/919345678901" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item service-group">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#movers">
-                    <i class="fa-solid fa-truck-moving me-2"></i> Packers & Movers
-                </button>
-            </h2>
-            <div id="movers" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
-                <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="provider-name">SafeMove Relocations</div>
-                            <div class="rating">4.7 <i class="fa-solid fa-star"></i></div>
-                        </div>
-                        <div>
-                            <a href="tel:9898989898" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
-                            <a href="https://wa.me/919898989898" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item service-group">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#internet">
-                    <i class="fa-solid fa-globe me-2"></i> Internet Providers
-                </button>
-            </h2>
-            <div id="internet" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
-                <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div><div class="provider-name">Jio Fiber</div></div>
-                        <div><a href="tel:18008899999" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a></div>
-                    </div>
+                    <c:forEach var="provider" items="${allProviders}">
+                        <c:if test="${provider.serviceType eq 'Cleaning'}">
+                            <div class="provider-row d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <div class="provider-name">${provider.name}</div>
+                                    <small class="text-white-50">${provider.location}</small>
+                                </div>
+                                <div>
+                                    <a href="tel:${provider.contact}" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="https://wa.me/91${provider.contact}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -164,16 +117,45 @@
             </h2>
             <div id="carpenter" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
                 <div class="accordion-body">
-                    <div class="provider-row d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="provider-name">WoodCraft Interiors</div>
-                            <div class="rating">4.7 <i class="fa-solid fa-star"></i></div>
-                        </div>
-                        <div>
-                            <a href="tel:9876543210" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
-                            <a href="https://wa.me/919876543210" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
-                        </div>
-                    </div>
+                    <c:forEach var="provider" items="${allProviders}">
+                        <c:if test="${provider.serviceType eq 'Carpenter'}">
+                            <div class="provider-row d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <div class="provider-name">${provider.name}</div>
+                                    <small class="text-white-50">${provider.location}</small>
+                                </div>
+                                <div>
+                                    <a href="tel:${provider.contact}" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="https://wa.me/91${provider.contact}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fa-brands fa-whatsapp"></i></a>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item service-group">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#appliance">
+                    <i class="fa-solid fa-plug me-2"></i> Appliance Repair
+                </button>
+            </h2>
+            <div id="appliance" class="accordion-collapse collapse" data-bs-parent="#serviceAccordion">
+                <div class="accordion-body">
+                    <c:forEach var="provider" items="${allProviders}">
+                        <c:if test="${provider.serviceType eq 'Appliance Repair'}">
+                            <div class="provider-row d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <div class="provider-name">${provider.name}</div>
+                                    <small class="text-white-50">${provider.location}</small>
+                                </div>
+                                <div>
+                                    <a href="tel:${provider.contact}" class="btn btn-gold btn-sm"><i class="fa-solid fa-phone"></i></a>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
         </div>

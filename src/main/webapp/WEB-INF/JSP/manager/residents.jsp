@@ -53,28 +53,28 @@
                     <img src="../../images/manager/img.png" alt="Wing A">
                     <div class="wing-overlay">
                         <h3>Wing A</h3>
-                        <button onclick="location.href='/residents?wing=A'">VIEW UNITS</button>
+                        <button onclick="location.href='${pageContext.request.contextPath}/manager/residents?wing=A'">VIEW UNITS</button>
                     </div>
                 </div>
                 <div class="wing-card">
                     <img src="../../images/manager/img.png" alt="Wing B">
                     <div class="wing-overlay">
                         <h3>Wing B</h3>
-                        <button onclick="location.href='/residents?wing=B'">VIEW UNITS</button>
+                        <button onclick="location.href='${pageContext.request.contextPath}/manager/residents?wing=B'">VIEW UNITS</button>
                     </div>
                 </div>
                 <div class="wing-card">
                     <img src="../../images/manager/img.png" alt="Wing C">
                     <div class="wing-overlay">
                         <h3>Wing C</h3>
-                        <button onclick="location.href='/residents?wing=C'">VIEW UNITS</button>
+                       <button onclick="location.href='${pageContext.request.contextPath}/manager/residents?wing=C'">VIEW UNITS</button>
                     </div>
                 </div>
                 <div class="wing-card">
                     <img src="../../images/manager/img.png" alt="Wing D">
                     <div class="wing-overlay">
                         <h3>Wing D</h3>
-                        <button onclick="location.href='/residents?wing=D'">VIEW UNITS</button>
+                       <button onclick="location.href='${pageContext.request.contextPath}/manager/residents?wing=D'">VIEW UNITS</button>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
 
         <div id="residentPage" style="${not empty selectedWing ? 'display:block' : 'display:none'}">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-                <button onclick="location.href='/residents'" class="back-btn">Back</button>
+                <button onclick="location.href='${pageContext.request.contextPath}/manager/residents'" class="back-btn">Back</button>
                 <button class="add-member-top" onclick="openAddMember()">+ Add Member</button>
             </div>
 
@@ -91,25 +91,20 @@
             <div class="table-responsive">
                 <table>
                     <thead>
-                    <tr>
-                        <th>Flat</th>
-                        <th>Owner Name</th>
-                        <th>Contact</th>
-                        <th>Email</th>
-                        <th>Members</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="res" items="${residentsList}">
                         <tr>
-                            <td data-label="Flat">${res.flatNumber}</td>
-                            <td data-label="Owner Name">${res.ownerName}</td>
-                            <td data-label="Contact">${res.contact}</td>
-                            <td data-label="Email">${res.email}</td>
-                            <td data-label="Members">${res.membersCount}</td>
+                            <th>Flat</th>
+                            <th>Owner Name</th>
+                            <th>Contact</th>
+                            <th>Email</th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
+                    </thead>
+                   <tbody>
+                       <c:forEach var="res" items="${residentsList}">
+                           <tr>
+                               <td data-label="Flat">${res.flatNumber}</td> <td data-label="Owner Name">${res.name}</td>
+                               <td data-label="Contact">${res.phone}</td>   <td data-label="Email">${res.email}</td>     </tr>
+                       </c:forEach>
+                   </tbody>
                 </table>
             </div>
         </div>
@@ -124,13 +119,18 @@
 <div id="memberModal" style="display:none">
     <div class="modal-card">
         <h3>Add Member</h3>
-        <form action="/saveResident" method="POST">
+        <form action="${pageContext.request.contextPath}/manager/saveResident" method="POST">
             <input type="hidden" name="wing" value="${selectedWing}">
 
             <input type="text" name="flat" placeholder="Flat No" required>
             <input type="text" name="name" placeholder="Owner Name" required>
-            <input type="text" name="contact" placeholder="Contact">
-            <input type="email" name="email" placeholder="Email">
+
+            <!-- FIXED NAME HERE -->
+            <input type="text" name="phone" placeholder="Contact" required>
+
+            <input type="email" name="email" placeholder="Email" required>
+
+            <!-- Note: Ensure your Controller method has @RequestParam String members if you keep this -->
             <input type="number" name="members" placeholder="Members Count">
 
             <div class="modal-actions">
@@ -140,7 +140,6 @@
         </form>
     </div>
 </div>
-
 <div id="logoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:1000;padding:20px;">
     <div style="background:#111111; padding:35px 30px; border-radius:20px; border:1px solid #7c622d; text-align:center; width:100%; max-width:440px;">
         <h5 style="margin-bottom:30px; color:#c5a059; font-size:16px;">Are you sure you want to logout?</h5>

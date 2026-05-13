@@ -46,11 +46,10 @@
                 </div>
 
                 <!-- Flat Number -->
-                <div class="col-12" id="flatField">
-                    <label class="form-label">Flat Number</label>
-                    <input type="text" class="form-control" name="flat" id="flat" placeholder="A-402" required>
-                    <div class="invalid-feedback">Flat info required.</div>
-                </div>
+               <div class="col-12" id="flatField">
+                   <label class="form-label">Flat Number</label>
+                   <input type="text" class="form-control" name="flatAndWing" id="flat" placeholder="e.g., A-402" required>
+               </div>
 
                 <!-- Email -->
                 <div class="col-12">

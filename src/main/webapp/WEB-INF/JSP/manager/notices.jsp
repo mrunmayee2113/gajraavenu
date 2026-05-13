@@ -44,21 +44,24 @@
         <div id="noticeContainer">
 
             <c:forEach var="notice" items="${allNotices}">
-                <div class="notice" style="position: relative; padding-bottom: 35px;">
+                <div class="notice" style="position: relative; padding-bottom: 50px; border: 1px solid #7c622d; margin-bottom: 15px; border-radius: 12px; padding: 20px; background: #1a1a1a;">
 
-                    <div class="notice-header">
-                        <div class="notice-title">${notice.title}</div>
-                        <span class="badge ${notice.category}">${notice.category.substring(0, 1).toUpperCase()}${notice.category.substring(1)}</span>
+                    <div class="notice-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="notice-title" style="color: #c5a059; font-size: 1.2rem; font-weight: bold;">${notice.title}</div>
+                        <span class="badge ${notice.category}" style="text-transform: capitalize;">${notice.category}</span>
                     </div>
-                    <p>${notice.content}</p>
-                    <div class="notice-date">📅 ${notice.date}</div>
 
-                    <a href="/deleteNotice?id=${notice.id}"
-                       onclick="return confirm('Are you sure you want to delete this notice?')"
-                       style="position: absolute; bottom: 15px; right: 15px; color: #a17b1d; background: transparent; border: none; cursor: pointer; text-decoration: none; font-size: 16px;"
-                       title="Delete Notice">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </a>
+                    <p style="color: #ddd; margin: 15px 0;">${notice.content}</p>
+
+                    <div class="notice-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <div class="notice-date" style="color: #888; font-size: 0.9rem;">📅 ${notice.date}</div>
+
+                        <a href="${pageContext.request.contextPath}/manager/deleteNotice/${notice.id}"
+                           onclick="return confirm('Delete this notice permanently?')"
+                           style="background: #a17b1d; color: #111; padding: 5px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 600; transition: 0.3s;">
+                           <i class="fa-solid fa-trash-can"></i> Delete
+                        </a>
+                    </div>
                 </div>
             </c:forEach>
 
@@ -81,8 +84,9 @@
     <div style="background:#111111; padding:35px 30px; border-radius:20px; border:1px solid #7c622d; text-align:center; min-width:480px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
         <h5 style="margin-bottom:25px; font-family: 'Cinzel', serif; color:#c5a059; letter-spacing:1px; font-size:16px; text-transform: uppercase;">Create New Notice</h5>
 
-        <form action="/saveNotice" method="POST">
-            <div class="form-group" style="text-align: left; margin-bottom: 15px;">
+        <form action="${pageContext.request.contextPath}/manager/saveNotice" method="POST">
+
+        <div class="form-group" style="text-align: left; margin-bottom: 15px;">
                 <label style="color: #c5a059;">Notice Title</label>
                 <input type="text" name="title" id="noticeTitle" class="form-control bg-dark text-white border-secondary" placeholder="e.g., Power Outage Schedule" required>
             </div>
