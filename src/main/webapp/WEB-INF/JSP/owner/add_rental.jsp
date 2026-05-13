@@ -15,7 +15,7 @@
 
 <body>
 
-<div class="brand">
+<div class="brand pt-5">
     <h1>GAJRA AVENUE</h1>
 </div>
 
@@ -23,7 +23,9 @@
     <h2 class="form-title">Add Rental Details</h2>
     <p class="tagline">List Your Property With Architectural Elegance</p>
 
-    <form action="${pageContext.request.contextPath}/save-rental" method="POST" id="rentalForm">
+    <form action="${pageContext.request.contextPath}/save-rental"
+          method="POST"
+          enctype="multipart/form-data">
 
         <h5 class="section-title mb-3">Owner Information</h5>
 
@@ -54,10 +56,10 @@
         <div class="mb-3">
             <label>Flat Type</label>
             <select name="flatType" class="form-control">
-                <option value="1 RK">1 RK</option>
-                <option value="1 BHK">1 BHK</option>
-                <option value="2 BHK">2 BHK</option>
-                <option value="3 BHK">3 BHK</option>
+                <option value="1 RK" class="op">1 RK</option>
+                <option value="1 BHK" class="op">1 BHK</option>
+                <option value="2 BHK" class="op">2 BHK</option>
+                <option value="3 BHK" class="op">3 BHK</option>
             </select>
         </div>
 
@@ -71,9 +73,8 @@
         <h5 class="section-title mb-3">Upload Flat Photos</h5>
 
         <label class="file-box" id="dropArea">
-            <p>📸 Click or Drag & Drop Images</p>
             <small class="text-white-50">Upload multiple photos</small>
-            <input type="file" id="imageInput" multiple accept="image/*" style="display:none;">
+<input type="file" name="imageFile" multiple accept="image/*" class="form-control">
         </label>
 
         <div class="preview-container" id="previewContainer"></div>
@@ -83,35 +84,48 @@
 </div>
 
 <script>
-    const input = document.getElementById("imageInput");
-    const previewContainer = document.getElementById("previewContainer");
-    const dropArea = document.getElementById("dropArea");
+const input = document.getElementById("imageInput");
+const previewContainer = document.getElementById("previewContainer");
+const dropArea = document.getElementById("dropArea");
 
-    input.addEventListener("change", handleFiles);
-    dropArea.addEventListener("dragover", e=>{ e.preventDefault(); dropArea.classList.add("dragover"); });
-    dropArea.addEventListener("dragleave", ()=>{ dropArea.classList.remove("dragover"); });
-    dropArea.addEventListener("drop", e=>{
-        e.preventDefault();
-        dropArea.classList.remove("dragover");
-        input.files = e.dataTransfer.files;
-        handleFiles.call(input);
+input.addEventListener("change", () => previewFiles(input.files));
+
+dropArea.addEventListener("dragover", e => {
+    e.preventDefault();
+    dropArea.classList.add("dragover");
+});
+
+dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("dragover");
+});
+
+dropArea.addEventListener("drop", e => {
+    e.preventDefault();
+    dropArea.classList.remove("dragover");
+
+    const dt = new DataTransfer();   // ✅ IMPORTANT FIX
+
+    Array.from(e.dataTransfer.files).forEach(file => {
+        dt.items.add(file);
     });
 
-    function handleFiles(){
-        previewContainer.innerHTML = "";
-        Array.from(this.files).forEach(file=>{
-            const reader = new FileReader();
-            reader.onload = function(e){
-                const div = document.createElement("div");
-                div.classList.add("preview");
-                // Escaped backtick for JSP compatibility
-                div.innerHTML = '<img src="' + e.target.result + '"><button type="button" class="remove-btn">×</button>';
-                div.querySelector(".remove-btn").onclick = () => div.remove();
-                previewContainer.appendChild(div);
-            }
-            reader.readAsDataURL(file);
-        });
-    }
+    input.files = dt.files;   // ✅ NOW multiple files go to backend
+    previewFiles(input.files);
+});
+
+function previewFiles(files) {
+    previewContainer.innerHTML = "";
+
+    Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const div = document.createElement("div");
+            div.innerHTML = `<img src="${e.target.result}" width="100">`;
+            previewContainer.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    });
+}
 </script>
 </body>
 </html>

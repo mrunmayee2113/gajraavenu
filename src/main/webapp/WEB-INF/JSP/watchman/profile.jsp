@@ -50,8 +50,9 @@
                     <span>Gajra Avenue</span>
                 </div>
 
-                <a href="/watchman/edit-profile" class="btn btn-gold">
-                    Edit Profile
+                <a href="${pageContext.request.contextPath}/watchman/edit-profile"
+                   class="btn btn-gold">
+                   Edit Profile
                 </a>
 
             </div>

@@ -25,7 +25,7 @@
     <a href="${pageContext.request.contextPath}/manager/visitors"><i class="fa-solid fa-shield-halved"></i> Security Logs</a>
     <a href="${pageContext.request.contextPath}/manager/notices"><i class="fa-solid fa-money-bill"></i> Notices</a>
     <a href="${pageContext.request.contextPath}/manager/service_providers"><i class="fa-solid fa-bell"></i> Service</a>
-    <a href="${pageContext.request.contextPath}/manager/settings"><i class="fa-solid fa-gear"></i> Settings</a>
+
     <a href="/" onclick="confirmLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
 </div>
 
@@ -69,7 +69,7 @@
                             <td>${entry.visitorName}</td>
                             <td>${entry.mobileNumber}</td>
                             <td>${entry.entryType}</td>
-                            <td>${entry.wing}-${entry.flatNumber}</td>
+                            <td>${entry.flatNumber}</td>
                             <td>${entry.purpose}</td>
                             <td>
                                 <fmt:parseDate value="${entry.entryTime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedIn" type="both" />

@@ -273,7 +273,7 @@
             <div class="col-lg-3 col-md-6" data-aos="fade-up" >
                 <div class="committee-card">
                     <div class="member-img-wrapper">
-                        <img src="https://www.shutterstock.com/image-photo/happy-confident-middle-aged-senior-260nw-2426125817.jpg" alt="President">
+                        <img src="/images/landingpage/image3.jpeg" alt="President">
                         <div class="member-overlay">
                             <div class="social-links">
                                 <a href="#"><i class="bi bi-linkedin"></i></a>
@@ -282,7 +282,7 @@
                         </div>
                     </div>
                     <div class="member-info text-center mt-4">
-                        <h5 class="fw-bold mb-1">Mr. Rajesh Sharma</h5>
+                        <h5 class="fw-bold mb-1">Mr. Dada Wadgaonkar</h5>
                         <p class="text-uppercase small" style="color: var(--gold); letter-spacing: 2px;">Chairman</p>
                     </div>
                 </div>
@@ -291,7 +291,7 @@
             <div class="col-lg-3 col-md-6" data-aos="fade-up" >
                 <div class="committee-card">
                     <div class="member-img-wrapper">
-                        <img src="https://img.freepik.com/premium-photo/indian-woman-pink-saree_636346-1217.jpg?w=360" alt="Vice Chairman">
+                       <img src="/images/landingpage/image1.jpeg" alt="Chairman">
                         <div class="member-overlay">
                             <div class="social-links">
                                 <a href="#"><i class="bi bi-linkedin"></i></a>
@@ -300,7 +300,7 @@
                         </div>
                     </div>
                     <div class="member-info text-center mt-4">
-                        <h5 class="fw-bold mb-1">Mrs. Dipti Shah</h5>
+                        <h5 class="fw-bold mb-1">Mrs. Jayashree Jadhav</h5>
                         <p class="text-uppercase small" style="color: var(--gold); letter-spacing: 2px;">Vice Chairman</p>
                     </div>
                 </div>
@@ -309,7 +309,7 @@
             <div class="col-lg-3 col-md-6" data-aos="fade-up" >
                 <div class="committee-card">
                     <div class="member-img-wrapper">
-                        <img src="https://img.freepik.com/free-photo/successful-businessman_1098-18155.jpg?semt=ais_rp_50_assets&w=740&q=80" alt="Treasurer">
+                        <img src="/images/landingpage/image2.jpeg" alt="Vice Chairman">
                         <div class="member-overlay">
                             <div class="social-links">
                                 <a href="#"><i class="bi bi-linkedin"></i></a>
@@ -353,7 +353,7 @@
                 <h2 class="display-5 fw-bold" style="font-family: 'Cinzel', serif;">Pathardi Phata, Nashik</h2>
                 <p class="text-white-50">Strategically located at the pulse of Nashik, offering hillside views with urban connectivity.</p>
                 <ul class="list-unstyled text-white-50">
-                    <li class="mb-2"><i class="fa-solid fa-check text-gold me-2"></i> Mumbai–Agra Highway Connectivity</li>
+                    <li class="mb-2"><i class="fa-solid fa-check text-gold me-2"></i> Mumbai - Agra Highway Connectivity</li>
                     <li class="mb-2"><i class="fa-solid fa-check text-gold me-2"></i> Close to Premium Hospitals & Schools</li>
                 </ul>
             </div>
@@ -379,7 +379,7 @@
 </div>
 
 <footer class="py-4 text-center border-top border-secondary border-opacity-10">
-    <p class="small text-white-50">Managed by <span style="color:var(--gold)">Gajra Avenu Systems © 2026</span></p>
+    <p class="small text-white-50">Managed by <span style="color:var(--gold)">Gajra Avenu Systems 2026</span></p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

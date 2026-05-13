@@ -12,13 +12,14 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String visitorName;
-    private String mobileNumber;
     private String entryType;
     private String wing;
     private String flatNumber;
     private String vehicleNumber;
     private String idProof;
     private String purpose;
+    @Column(name = "mobile_number")
+    private String mobileNumber;
 
     private LocalDateTime entryTime;
     @Column(name = "exit_time")

@@ -1,15 +1,23 @@
 package com.project.gajraavenu.controller.watchman;
 
+import com.project.gajraavenu.model.owner.Visitor;
+import com.project.gajraavenu.model.watchman.Alert;
+import com.project.gajraavenu.repository.watchman.AlertRepository;
+import com.project.gajraavenu.service.owner.VisitorService;
+import com.project.gajraavenu.service.watchman.EmailService;
+import org.springframework.ui.Model;
 import com.project.gajraavenu.model.landing.User;
 import com.project.gajraavenu.service.watchman.EntryService;
 import com.project.gajraavenu.service.landing.UserService;
-import org.springframework.ui.Model;
 import com.project.gajraavenu.model.watchman.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import com.project.gajraavenu.model.manager.notices;
+import com.project.gajraavenu.service.manager.managerservice;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,36 +31,33 @@ public class WatchmanController {
     @Autowired
     private UserService userService;
 
-        // Visitors Page
-        @GetMapping("/visitors")
-        public String visitorsPage(Model model) {
-            model.addAttribute("entries", entryService.getAllEntries());
-            return "watchman/preapproved_visitors";
-        }
+    @Autowired
+    private VisitorService visitorService;
+    @Autowired
+    private managerservice managerService;
 
-        // Updates Page
-        @GetMapping("/notice")
-        public String updatesPage() {
-            return "watchman/notice";
-        }
+    @GetMapping("/visitors")
+    public String showPreApprovedVisitors(Model model) {
+        model.addAttribute("visitors", visitorService.getAllVisitors());
+        return "watchman/preapproved_visitors";
+    }
 
-        // Profile Page
-        @GetMapping("/profile")
-        public String profilePage(Model model) {
-            User user = userService.getSecurityUser();
-            model.addAttribute("user", user);
-            return "watchman/profile";
-        }
-    @GetMapping("/edit-profile")
-    public String editProfile(Model model) {
+    @GetMapping("/notice")
+    public String updatesPage(Model model) {
+        // Calling method on the instance, not the class
+        List<notices> list = managerService.getAllNotices();
+        model.addAttribute("notices", list); // Name matches JSP
+        return "watchman/notice";
+    }
+    @GetMapping("/profile")
+    public String showProfile(Model model) {
 
-        User user = userService.getSecurityUser(); // fetch from DB
+        User user = userService.getSecurityUser(); // logged-in user
 
         model.addAttribute("user", user);
 
-        return "watchman/edit-profile";
+        return "watchman/profile"; // your JSP file
     }
-
     @PostMapping("/update-profile")
     public String updateProfile(@ModelAttribute User user) {
 
@@ -104,10 +109,21 @@ public class WatchmanController {
 
     @GetMapping("/log-entry")
     public String showForm() {
+
+
+
         return "watchman/log-entry";
     }
 
+    @GetMapping("/edit-profile")
+    public String showEditProfile(Model model) {
 
+        User user = userService.getSecurityUser(); // logged-in user
+
+        model.addAttribute("user", user);
+
+        return "watchman/edit-profile"; // JSP file name
+    }
     @GetMapping("/all-entries")
     public String showAllEntries(
             @RequestParam(required = false) String order,
@@ -153,7 +169,35 @@ public class WatchmanController {
 
     @PostMapping("/save-entry")
     public String saveEntry(@ModelAttribute Entry entry) {
-        entryService.saveEntry(entry);
+
+        Entry savedEntry = entryService.saveEntry(entry);
+
+        Visitor visitor = new Visitor();
+        visitor.setName(savedEntry.getVisitorName());
+        String flat = savedEntry.getFlatNumber();
+
+// Fix cases like 107 → A-107
+        if (!flat.contains("-") && savedEntry.getWing() != null) {
+            flat = savedEntry.getWing() + "-" + flat;
+        }
+
+        visitor.setFlatNumber(flat);
+        visitor.setPhone(savedEntry.getMobileNumber());
+        visitor.setPurpose(savedEntry.getPurpose());
+        visitor.setStatus("Visited");
+        visitor.setVisitDate(LocalDate.now().toString());
+
+        // ✅ FIND OWNER USING FLAT NUMBER
+        User owner = userService.findByFlatNumber(savedEntry.getFlatNumber());
+
+        if (owner == null) {
+            System.out.println("❌ OWNER NOT FOUND FOR FLAT: " + savedEntry.getFlatNumber());
+        }
+        // ✅ LINK OWNER
+        visitor.setOwner(owner);
+
+        visitorService.saveVisitor(visitor);
+
         return "redirect:/watchman/dashboard";
     }
     @GetMapping("/dashboard")
@@ -193,11 +237,79 @@ public class WatchmanController {
         return "watchman/landingpage_watchman";
     }
 
+    @GetMapping("/markVisited/{id}")
+    public String markVisited(@PathVariable Long id) {
+
+        // Get visitor data
+        Visitor v = visitorService.getVisitorById(id);
+
+        // Mark visitor as visited
+
+        visitorService.markAsVisited(id);
+
+        // Create entry log
+        Entry entry = new Entry();
+        entry.setVisitorName(v.getName());
+        entry.setFlatNumber(v.getFlatNumber());
+        entry.setEntryType("visitor");
+
+        entryService.saveEntry(entry);
+
+        return "redirect:/watchman/visitors";
+    }
 
     @PostMapping("/exit/{id}")
     public String markExit(@PathVariable Long id) {
         entryService.markExit(id);
         return "redirect:/watchman/all-entries";
+    }
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private AlertRepository alertRepository;
+
+    @PostMapping("/broadcast-alert")
+    @ResponseBody
+    public String broadcastAlert() {
+
+        String message = " !!!! EMERGENCY ALERT !!!!" +
+                "\n" +
+                "Dear Resident,\n" +
+                "\n" +
+                "An urgent situation has been reported within the society premises. \n" +
+                "We request you to stay alert and follow safety precautions.\n" +
+                "\n" +
+                "Please avoid unnecessary movement and cooperate with security staff.\n" +
+                "\n" +
+                "Further updates will be shared shortly.\n" +
+                "\n" +
+                "- Gajra Avenue Management";
+
+        // ✅ SAVE ALERT IN DB
+        Alert alert = new Alert();
+        alert.setMessage(message);
+        alert.setCreatedAt(LocalDateTime.now());
+
+        alertRepository.save(alert);
+
+        // ✅ SEND EMAILS
+        List<User> users = userService.getAllUsers();
+
+        for (User user : users) {
+
+            if (!"Society Member".equals(user.getRole())) continue;
+
+            if (user.getEmail() == null || user.getEmail().isEmpty()) continue;
+
+            emailService.sendEmail(
+                    user.getEmail(),
+                    "Emergency Alert",
+                    message
+            );
+        }
+
+        return "Emails sent successfully!";
     }
 
 

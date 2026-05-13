@@ -1,77 +1,98 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Maintenance Receipt | Gajra Avenue</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manager/receipt.css">
+    <title>Maintenance Receipt</title>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 
 </head>
 
 <body>
 
-<div class="container">
+<h1>GAJRA AVENUE APARTMENT</h1>
+<h2>Maintenance Receipt</h2>
 
-    <h1>GAJRA AVENUE APARTMENT</h1>
-    <h2>Maintenance Receipt</h2>
+<div class="form-grid">
 
-    <div class="form-grid">
-
-        <div class="form-group">
-            <label>Receipt No:</label>
-            <input type="text">
-        </div>
-
-        <div class="form-group">
-            <label>Date:</label>
-            <input type="date">
-        </div>
-
-        <div class="form-group">
-            <label>Flat No:</label>
-            <input type="text">
-        </div>
-
-        <div class="form-group">
-            <label>Received From:</label>
-            <input type="text">
-        </div>
-
+    <div class="form-group">
+        <label>Receipt No:</label>
+        <p>${payment.id}</p>
     </div>
 
+    <div class="form-group">
+        <label>Date:</label>
+        <p>${paymentDate}</p>
+    </div>
 
-    <table>
+    <div class="form-group">
+        <label>Flat No:</label>
+        <p>${payment.flatNumber}</p>
+    </div>
 
-        <tr>
-            <th>No.</th>
-            <th>Particulars</th>
-            <th>Amount</th>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-        </tr>
-
-        <tr>
-            <td colspan="2"><b>Total</b></td>
-            <td><input type="text"></td>
-        </tr>
-
-    </table>
-
-    <div class="btn-container">
-        <button class="btn">Send</button>
+    <div class="form-group">
+        <label>Received From:</label>
+        <p>Owner</p>
     </div>
 
 </div>
-<div class="table-container">
-    <table>
-        ...
-    </table>
-</div>
+
+<table>
+
+    <tr>
+        <th>No.</th>
+        <th>Particulars</th>
+        <th>Amount</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td>Maintenance Charges</td>
+        <td>₹ ${payment.amount}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><b>Total</b></td>
+        <td>₹ ${payment.amount}</td>
+    </tr>
+
+</table>
 
 </body>
 </html>

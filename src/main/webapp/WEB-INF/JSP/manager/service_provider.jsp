@@ -27,7 +27,6 @@
         <a href="${pageContext.request.contextPath}/manager/visitors"><i class="fa-solid fa-shield-halved"></i> Security Logs</a>
         <a href="${pageContext.request.contextPath}/manager/notices"><i class="fa-solid fa-money-bill"></i> Notices</a>
         <a href="${pageContext.request.contextPath}/manager/service_providers"><i class="fa-solid fa-bell"></i> Service</a>
-        <a href="${pageContext.request.contextPath}/manager/settings"><i class="fa-solid fa-gear"></i> Settings</a>
         <a href="/" onclick="confirmLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
 
@@ -46,11 +45,11 @@
                 <div class="provider-card" style="position: relative; padding-bottom: 35px;">
                     <div class="service-icon">
                         <c:choose>
-                            <c:when test="${provider.serviceType == 'Plumber'}"><i class="fa fa-wrench"></i></c:when>
-                            <c:when test="${provider.serviceType == 'Electrician'}"><i class="fa fa-bolt"></i></c:when>
-                            <c:when test="${provider.serviceType == 'Carpenter'}"><i class="fa fa-hammer"></i></c:when>
-                            <c:when test="${provider.serviceType == 'Cleaning'}"><i class="fa fa-broom"></i></c:when>
-                            <c:when test="${provider.serviceType == 'Appliance Repair'}"><i class="fa fa-plug"></i></c:when>
+                            <c:when test="${provider.serviceType eq 'Plumber'}"><i class="fa fa-wrench"></i></c:when>
+                            <c:when test="${provider.serviceType eq'Electrician'}"><i class="fa fa-bolt"></i></c:when>
+                            <c:when test="${provider.serviceType eq 'Carpenter'}"><i class="fa fa-hammer"></i></c:when>
+                            <c:when test="${provider.serviceType eq 'Cleaning'}"><i class="fa fa-broom"></i></c:when>
+                            <c:when test="${provider.serviceType eq 'Appliance Repair'}"><i class="fa fa-plug"></i></c:when>
                             <c:otherwise><i class="fa fa-bell"></i></c:otherwise>
                         </c:choose>
                     </div>
@@ -108,7 +107,7 @@
 
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
                 <label style="color: #c5a059;">Service Type</label>
-                <select name="service" id="pService" class="form-control bg-dark text-white border-secondary" required>
+                <select name="serviceType" id="pService" class="form-control bg-dark text-white border-secondary" required>
                     <option value="Plumber">Plumber</option>
                     <option value="Electrician">Electrician</option>
                     <option value="Carpenter">Carpenter</option>

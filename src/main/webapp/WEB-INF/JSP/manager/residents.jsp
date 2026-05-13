@@ -15,14 +15,8 @@
 
 <body>
 
-<div class="mobile-navbar">
-    <h4>GAJRA AVENUE</h4>
-    <button class="menu-btn" onclick="toggleSidebar()">
-        <i class="fa-solid fa-bars"></i>
-    </button>
-</div>
 
-<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
 
 <div class="dashboard">
 
@@ -36,15 +30,24 @@
         <a href="${pageContext.request.contextPath}/manager/visitors"><i class="fa-solid fa-shield-halved"></i> Security Logs</a>
         <a href="${pageContext.request.contextPath}/manager/notices"><i class="fa-solid fa-money-bill"></i> Notices</a>
         <a href="${pageContext.request.contextPath}/manager/service_providers"><i class="fa-solid fa-bell"></i> Service</a>
-        <a href="${pageContext.request.contextPath}/manager/settings"><i class="fa-solid fa-gear"></i> Settings</a>
         <a href="/" onclick="confirmLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
-
+<div class="overlay"></div>
 
     <div class="content">
+<div class="topbar">
 
+           <!-- ADD THIS -->
+           <i class="fa-solid fa-bars menu-toggle"></i>
+
+           <div class="topbar-right d-flex align-items-center gap-3">
+               <h2>Residents</h2>
+           </div>
+
+
+        </div>
         <div id="wingSection" style="${not empty selectedWing ? 'display:none' : 'display:block'}">
-            <h2>Residents Wings</h2>
+
             <div class="wing-container">
                 <div class="wing-card">
                     <img src="../../images/manager/img.png" alt="Wing A">
@@ -149,12 +152,25 @@
 </div>
 
 <script>
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        sidebar.classList.toggle('drawer-active');
-        overlay.style.display = sidebar.classList.contains('drawer-active') ? 'block' : 'none';
+document.addEventListener("DOMContentLoaded", function(){
+
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.querySelector(".overlay");
+
+    if(toggleBtn){
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
     }
+
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+    });
+
+});
 
     function openAddMember(){
         document.getElementById("memberModal").style.display="flex";

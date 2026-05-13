@@ -1,10 +1,10 @@
-package com.project.gajraavenu.model;
+package com.project.gajraavenu.model.owner;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "society_notices") // Unified table name
+@Table(name = "society_notices")
 public class Notice {
 
     @Id
@@ -19,7 +19,8 @@ public class Notice {
     private String category;
     private LocalDate date;
 
-    // Getters and Setters
+    public Notice() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getTitle() { return title; }

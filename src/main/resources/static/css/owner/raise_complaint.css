@@ -25,3 +25,31 @@ body{
 /* Classes match the status values stored in database */
 .Pending{ background:#ffc107; color:#000; }
 .Resolved{ background:#28a745; color: white; }
+
+        :root { --gold: #d4af37; --dark: #111111; }
+        body { background-color: #1a1a1a; color: #ffffff; font-family: 'Montserrat', sans-serif; padding: 20px; }
+        .header-title { font-family: 'Cinzel', serif; color: var(--gold); text-align: center; text-transform: uppercase; font-size: 2.2rem; margin-bottom: 30px; letter-spacing: 2px; }
+
+        /* Form Card */
+        .entry-card { background-color: var(--dark); border-radius: 12px; padding: 40px; max-width: 900px; margin: 0 auto; border: 1px solid #2a2a2a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .form-label { color: #ffffff; font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.85rem; text-transform: uppercase; }
+        .form-label::after { content: " *"; color: var(--gold); }
+        .form-control, .form-select { background-color: #000000; border: 1px solid #333; color: #ffffff; border-radius: 6px; padding: 10px; margin-bottom: 20px; transition: 0.3s; }
+        .form-control:focus, .form-select:focus { border-color: var(--gold); box-shadow: none; outline: none; background-color: #050505; color: white; }
+        .form-control-readonly { background-color: #0a0a0a !important; border-color: #222 !important; color: #888 !important; cursor: not-allowed; }
+
+        /* Buttons */
+        .btn-save { background-color: var(--gold); color: #000000; font-weight: 700; border: none; padding: 12px 40px; border-radius: 8px; display: block; margin: 20px auto 0; text-transform: uppercase; transition: 0.3s; }
+        .btn-save:hover { background-color: #b8962e; transform: translateY(-2px); }
+
+        /* History Table */
+        .history-container { max-width: 900px; margin: 40px auto; }
+        .history-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+        .history-table th { color: var(--gold); text-transform: uppercase; font-size: 0.75rem; padding: 10px; font-family: 'Cinzel'; text-align: left; }
+        .history-table td { background-color: var(--dark); padding: 15px; border-top: 1px solid #222; border-bottom: 1px solid #222; font-size: 0.9rem; }
+        .history-table tr td:first-child { border-left: 1px solid #222; border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+        .history-table tr td:last-child { border-right: 1px solid #222; border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+
+        .action-icon { color: #888; transition: 0.3s; margin: 0 8px; cursor: pointer; }
+        .action-icon:hover { color: var(--gold); }
+        .icon-delete:hover { color: #ff4d4d; }

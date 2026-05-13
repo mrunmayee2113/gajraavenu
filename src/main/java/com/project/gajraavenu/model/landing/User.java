@@ -8,78 +8,56 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private Long id;
 
     private String role;
     private String name;
-    private String flat;
     private String email;
-    private String phone;
     private String password;
+    private String phone;
+    private String wing;
+    private String flatNumber;
+    private String flat; // Keep this if you use it for "Flat Name", otherwise remove
+    private String shift; // For security/staff users
 
-    public String getShift() {
-        return shift;
-    }
+    // ID
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setShift(String shift) {
-        this.shift = shift;
-    }
+    // Role
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    private String shift;
+    // Name
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getEmail() {
-        return email;
-    }
+    // Email
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    // Password (THIS FIXES YOUR ERROR)
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getPassword() {
-        return password;
-    }
+    // Phone
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    // Wing
+    public String getWing() { return wing; }
+    public void setWing(String wing) { this.wing = wing; }
 
-    public String getPhone() {
-        return phone;
-    }
+    // Flat Number
+    public String getFlatNumber() { return flatNumber; }
+    public void setFlatNumber(String flatNumber) { this.flatNumber = flatNumber; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    // Flat (Optional combined field)
+    public String getFlat() { return flat; }
+    public void setFlat(String flat) { this.flat = flat; }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFlat() {
-        return flat;
-    }
-
-    public void setFlat(String flat) {
-        this.flat = flat;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    // Shift
+    public String getShift() { return shift; }
+    public void setShift(String shift) { this.shift = shift; }
 }

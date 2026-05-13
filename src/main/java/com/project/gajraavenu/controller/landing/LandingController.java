@@ -2,19 +2,39 @@ package com.project.gajraavenu.controller.landing;
 
 import com.project.gajraavenu.model.landing.Contact;
 import com.project.gajraavenu.model.landing.User;
+import com.project.gajraavenu.model.manager.notices;
+import com.project.gajraavenu.model.manager.residents;
+import com.project.gajraavenu.model.owner.Notice;
+import com.project.gajraavenu.model.owner.Rental;
+import com.project.gajraavenu.repository.landing.UserRepository;
+import com.project.gajraavenu.repository.owner.NoticeRepository;
 import com.project.gajraavenu.service.landing.UserService;
+import com.project.gajraavenu.service.manager.managerservice;
+import com.project.gajraavenu.service.owner.NoticeService;
+import com.project.gajraavenu.service.owner.RentalService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class LandingController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private RentalService rentalService;
+    @Autowired
+    private UserRepository userRepo;
+    @Autowired
+    private NoticeRepository noticeRepository;
+    @Autowired
+    private managerservice managerService;
+    @Autowired
+    private UserRepository userRepository;
     @GetMapping("/")
     public String home() {
         return "landing/landingpage";
@@ -36,7 +56,8 @@ public class LandingController {
             session.setAttribute("loggedUser", user);
 
             if (user.getRole().equals("Society Member")) {
-                return "redirect:/owner/owner_dashboard";
+                // This redirect goes to your PRIVATE ComplaintController
+                return "redirect:/owner/complaints";
             }
             else if (user.getRole().equals("Managing Committee")) {
                 return "redirect:/manager/dashboard";
@@ -46,7 +67,7 @@ public class LandingController {
             }
         }
         model.addAttribute("error", "Invalid credentials");
-        return "landing/login"; // back to login page
+        return "landing/login";
     }
 
     @GetMapping("/signup")
@@ -54,39 +75,46 @@ public class LandingController {
         return "landing/signup";
     }
 
-
-
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
+    public String handleRegistration(
+            @RequestParam("role") String role,
+            @RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam("phone") String phone,
+            @RequestParam("password") String password,
+            @RequestParam(value = "flatAndWing", required = false) String flatAndWing,
+            Model model) { // Added Model to show the error message
 
-        userService.registerUser(user);
+        // 1. DUPLICATE CHECK: Look for existing email BEFORE creating the new object
+        User existingUser = userRepository.findByEmail(email).orElse(null);
 
-        return "redirect:/login";
-    }
-
-//    @GetMapping("/manager/manager_dashboard")
-//    public String managerDashboard(HttpSession session) {
-//
-//        User user = (User) session.getAttribute("loggedUser");
-//
-//        if (user == null) {
-//            return "redirect:/login";
-//        }
-//
-//        return "manager/dashboard";
-//    }
-
-    @GetMapping("/owner/owner_dashboard")
-    public String memberDashboard(HttpSession session) {
-
-        User user = (User) session.getAttribute("loggedUser");
-
-        if (user == null) {
-            return "redirect:/login";
+        if (existingUser != null) {
+            model.addAttribute("error", "This email is already registered. Please login.");
+            return "landing/signup";
         }
 
-        return "owner/owner_dashboard";
+        // 2. If no duplicate, proceed with creating the user
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setPassword(password);
+        user.setRole(role);
+
+        // Keep your specific logic for splitting Wing and Flat
+        if ("Society Member".equals(role) && flatAndWing != null && flatAndWing.contains("-")) {
+            String[] parts = flatAndWing.split("-");
+            user.setWing(parts[0].trim().toUpperCase());
+            user.setFlatNumber(parts[1].trim());
+        }
+
+        // 3. Save the unique user
+        userRepo.save(user);
+
+        return "redirect:/login?success=true";
     }
+    // REMOVED: memberDashboard method that was causing the privacy leak.
+    // The dashboard is now handled correctly in ComplaintController.java
 
     @GetMapping("/watchman/landingpage_watchman")
     public String securityDashboard(HttpSession session) {
@@ -106,7 +134,11 @@ public class LandingController {
     }
 
     @GetMapping("/rentals")
-    public String rentals() {
+    public String rentals(Model model) {
+
+        List<Rental> rentals = rentalService.getAllRentals();
+        model.addAttribute("rentals", rentals);
+
         return "landing/rental";
     }
 
@@ -116,18 +148,14 @@ public class LandingController {
     }
 
     @GetMapping("/flat-details")
-    public String flatDetails(
-            @RequestParam String id,
-            @RequestParam String type,
-            @RequestParam String rent,
-            Model model) {
+    public String flatDetails(@RequestParam Long id, Model model) {
 
-        model.addAttribute("id", id);
-        model.addAttribute("type", type);
-        model.addAttribute("rent", rent);
+        Rental rental = rentalService.getRentalById(id);
+        model.addAttribute("r", rental);
 
         return "landing/flat-details";
     }
+
     @PostMapping("/contact")
     @ResponseBody
     public String handleContact(@RequestBody Contact contact) {

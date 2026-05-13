@@ -7,46 +7,85 @@ import com.project.gajraavenu.repository.landing.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository u_repo;
+    private UserRepository userRepository;
+
     @Autowired
-    private ContactRepository c_repo;
+    private ContactRepository contactRepository;
 
+    /**
+     * REGISTER USER
+     * Saves to the 'users' table only.
+     */
 
+    public User findByFlatNumber(String flatNumber) {
+        return userRepository.findByFlatNumber(flatNumber);
+    }
     public User registerUser(User user) {
-        return u_repo.save(user);
+        return userRepository.save(user);
     }
-
-
+    public List<Contact> getAllContacts() {
+        return contactRepository.findAll();
+    }
+    /**
+     * LOGIN / SEARCH LOOKUP
+     */
     public User findByEmailOrFlat(String username) {
-        return u_repo.findByEmail(username)
-                .orElse(u_repo.findByFlat(username).orElse(null));
+
+        User user = userRepository.findByEmail(username).orElse(null);
+
+        if (user != null) {
+            return user;
+        }
+
+        User userByFlat = userRepository.findByFlatNumber(username);
+
+        if (userByFlat != null) {
+            return userByFlat;
+        }
+
+        return null;
     }
 
+    /**
+     * SAVE CONTACT REQUESTS
+     */
     public void saveContact(Contact contact) {
-        c_repo.save(contact);
+        contactRepository.save(contact);
     }
-
-
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    /**
+     * FETCH SECURITY STAFF
+     */
     public User getSecurityUser() {
-        return u_repo.findByRole("security").orElse(null);
+        return userRepository.findFirstByRole("Security").orElse(null);
     }
-    public void updateUser(User updatedUser) {
 
-        User user = u_repo.findById(updatedUser.getId()).orElseThrow();
+    /**
+     * UPDATE USER PROFILE
+     */
+    public void updateUser(User updatedUser) {
+        User user = userRepository.findById(updatedUser.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setName(updatedUser.getName());
         user.setPhone(updatedUser.getPhone());
-        user.setShift(updatedUser.getShift());
 
+        if (updatedUser.getShift() != null) user.setShift(updatedUser.getShift());
+        if (updatedUser.getWing() != null) user.setWing(updatedUser.getWing());
+        if (updatedUser.getFlatNumber() != null) user.setFlatNumber(updatedUser.getFlatNumber());
 
-        if(updatedUser.getPassword() != null){
+        if (updatedUser.getPassword() != null && !updatedUser.getPassword().trim().isEmpty()) {
             user.setPassword(updatedUser.getPassword());
         }
 
-        u_repo.save(user);
+        userRepository.save(user);
     }
 }

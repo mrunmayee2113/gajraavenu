@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class RentalService {
+
     @Autowired
     private RentalRepository rentalRepository;
 
@@ -18,5 +19,9 @@ public class RentalService {
 
     public List<Rental> getAllRentals() {
         return rentalRepository.findAll();
+    }
+
+    public Rental getRentalById(Long id) {
+        return rentalRepository.findById(id).orElse(null);
     }
 }

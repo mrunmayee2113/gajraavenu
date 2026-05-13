@@ -66,16 +66,7 @@
                                     <option value="" disabled selected hidden>Select Flat</option>
                                 </select>
                             </div>
-                            <div class="col-12" id="notifySection" style="display:none;">
-                                <div class="alert alert-warning d-flex justify-content-between align-items-center"
-                                     style="background:#111;border:1px solid #c5a059;color:white;">
-                                    <span id="ownerInfo">Owner: </span>
-                                    <button type="button" class="btn btn-sm btn-gold" onclick="notifyOwner()">
-                                        Notify Owner
-                                    </button>
 
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <label class="form-label">Vehicle Number</label>
                                 <input type="text" name="vehicleNumber" class="form-control" placeholder="MH-12-AB-1234">
@@ -123,16 +114,8 @@
     const residenceFields = document.querySelectorAll(".residence-field");
     const wingSelect = document.getElementById("wingSelect");
     const flatSelect = document.getElementById("flatSelect");
-    const notifySection = document.getElementById("notifySection");
-    const ownerInfo = document.getElementById("ownerInfo");
 
-    /* Dummy owner database */
-    const owners = {
-        "A-101": "Mr. Patil",
-        "A-102": "Mrs. Sharma",
-        "B-101": "Mr. Mehta",
-        "C-103": "Mrs. Desai"
-    };
+
     /* Hide Wing & Flat for Manager */
     entryType.addEventListener("change", function() {
 
@@ -150,7 +133,6 @@
 
         const wing = this.value;
         flatSelect.innerHTML = '<option value="" disabled selected hidden>Select Flat</option>';
-        notifySection.style.display = "none";
 
         // ✅ If "Meet manager" selected → hide flat field
         if (wing === "managermeet") {
@@ -162,35 +144,22 @@
 
         // Generate flats normally
         for (let i = 101; i <= 128; i++) {
-            const option = document.createElement("option");
 
-            option.value = i;
-            option.textContent = wing + "-" + i;
+            const option = document.createElement("option");  // ✅ MISSING LINE
+
+            const flat = wing + "-" + i;
+
+            option.value = flat;
+            option.textContent = flat;
 
             flatSelect.appendChild(option);
         }
 
     });
 
-    /* When Flat Selected → Show Notify */
-    flatSelect.addEventListener("change", function() {
 
-        const selectedFlat = this.value;
 
-        if (selectedFlat) {
 
-            const ownerName = owners[selectedFlat] || "Flat Owner";
-            ownerInfo.textContent = "Owner: " + ownerName + " (" + selectedFlat + ")";
-            notifySection.style.display = "block";
-
-        }
-
-    });
-
-    /* Notify Button */
-    function notifyOwner() {
-        alert("Notification sent to Flat Owner successfully!");
-    }
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

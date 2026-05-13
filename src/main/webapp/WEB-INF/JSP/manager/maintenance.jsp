@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +29,6 @@
         <a href="${pageContext.request.contextPath}/manager/visitors"><i class="fa-solid fa-shield-halved"></i> Security Logs</a>
         <a href="${pageContext.request.contextPath}/manager/notices"><i class="fa-solid fa-money-bill"></i> Notices</a>
         <a href="${pageContext.request.contextPath}/manager/service_providers"><i class="fa-solid fa-bell"></i> Service</a>
-        <a href="${pageContext.request.contextPath}/manager/settings"><i class="fa-solid fa-gear"></i> Settings</a>
         <a href="/" onclick="confirmLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
 
@@ -34,24 +36,24 @@
     <div class="content">
         <h1 style="margin-bottom:30px;">Maintenance Overview - March 2026</h1>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h5>Total Expected</h5>
-                <p>₹ 3,00,000</p>
-            </div>
-            <div class="stat-card">
-                <h5>Total Collected</h5>
-                <p>₹ 2,50,000</p>
-            </div>
-            <div class="stat-card">
-                <h5>Pending Amount</h5>
-                <p>₹ 50,000</p>
-            </div>
-            <div class="stat-card">
-                <h5>Available Balance</h5>
-                <p>₹ 60,000</p>
-            </div>
-        </div>
+       <div class="stats-grid">
+           <div class="stat-card">
+               <h5>Total Expected</h5>
+               <p>Rs. ${expected}</p>
+           </div>
+           <div class="stat-card">
+               <h5>Total Collected</h5>
+               <p>Rs. ${collected}</p>
+           </div>
+           <div class="stat-card">
+               <h5>Pending Amount</h5>
+               <p>Rs. ${pending}</p>
+           </div>
+           <div class="stat-card">
+               <h5>Available Balance</h5>
+               <p>Rs. ${balance}</p>
+           </div>
+       </div>
 
         <div class="d-flex justify-content-between align-items-center">
             <h3>Flat-wise Payment Status</h3>
@@ -70,30 +72,32 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>A-101</td>
-                    <td>Rajesh Patil</td>
-                    <td>2500</td>
-                    <td>10 Feb 2026</td>
-                    <td class="status-paid">Paid</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editFlatRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteFlatRow(this)" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>B-204</td>
-                    <td>Anita Deshmukh</td>
-                    <td>2500</td>
-                    <td>10 Feb 2026</td>
-                    <td class="status-pending">Pending</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editFlatRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteFlatRow(this)" title="Delete"></i>
-                    </td>
-                </tr>
-                </tbody>
+               <tbody>
+                   <c:choose>
+                       <c:when test="${not empty maintenanceList}">
+                           <c:forEach var="item" items="${maintenanceList}">
+                               <tr>
+                                   <td>${item.flatNumber}</td>
+                                   <td>${item.ownerName}</td>
+                                   <td>Rs. ${item.totalAmount != null ? item.totalAmount : 0}</td>
+                                   <td>${item.billingMonth}</td>
+                                   <td><span class="status-badge">${item.status}</span></td>
+                                   <td>
+                                       <i class="fa fa-edit" onclick="editBill('${item.id}')"></i>
+                                       <i class="fa fa-trash" onclick="confirmDelete('${item.id}')" style="color:red; cursor:pointer;"></i>
+                                   </td>
+                               </tr>
+                           </c:forEach>
+                       </c:when>
+                       <c:otherwise>
+                           <tr>
+                               <td colspan="6" style="text-align:center; padding: 20px; color: #888;">
+                                   No maintenance records found. Click "+ Add Entry" to begin.
+                               </td>
+                           </tr>
+                       </c:otherwise>
+                   </c:choose>
+               </tbody>
             </table>
         </div>
 
@@ -113,45 +117,33 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>Lift Maintenance</td>
-                    <td>25,000</td>
-                    <td>05 Feb 2026</td>
-                    <td>Manager</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editExpenseRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteExpenseRow(this)" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security Salary</td>
-                    <td>80,000</td>
-                    <td>01 Feb 2026</td>
-                    <td>Committee</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editExpenseRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteExpenseRow(this)" title="Delete"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Electricity Bill</td>
-                    <td>35,000</td>
-                    <td>08 Feb 2026</td>
-                    <td>Manager</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editExpenseRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteExpenseRow(this)" title="Delete"></i>
-                    </td>
-                </tr>
-                </tbody>
+             <tbody>
+                 <c:choose>
+                     <c:when test="${not empty expenseList}">
+                         <c:forEach var="exp" items="${expenseList}">
+                             <tr>
+                                 <td>${exp.type}</td>
+                                 <td>Rs. ${exp.amount}</td>
+                                 <td>${exp.date}</td>
+                                 <td>${exp.approvedBy}</td>
+                                 <td>
+                                     <i class="fa fa-trash" onclick="deleteExpense('${exp.id}')" style="color:red; cursor:pointer;"></i>
+                                 </td>
+                             </tr>
+                         </c:forEach>
+                     </c:when>
+                     <c:otherwise>
+                         <tr>
+                             <td colspan="5" style="text-align:center; padding: 20px; color: #888;">
+                                 No expense records found in database.
+                             </td>
+                         </tr>
+                     </c:otherwise>
+                 </c:choose>
+             </tbody>
             </table>
         </div>
 
-        <div class="d-flex justify-content-center gap-3">
-            <a href="bill.html" target="_blank" class="btn-gold text-decoration-none">Generate Bill</a>
-            <a href="receipt.html" target="_blank" class="btn-gold text-decoration-none">Receipt</a>
-        </div>
 
     </div>
 </div>
@@ -236,43 +228,70 @@
         document.getElementById("expenseModal").style.display = "none";
         editingExpenseRow = null;
     }
+function saveExpense() {
+    const type = document.getElementById("expenseType").value;
+    const amount = document.getElementById("expenseAmount").value;
+    const approved = document.getElementById("approvedBy").value;
 
-    function saveExpense(){
-        let type = document.getElementById("expenseType").value;
-        let amount = document.getElementById("expenseAmount").value;
-        let date = document.getElementById("expenseDate").value;
-        let approved = document.getElementById("approvedBy").value;
+    const today = new Date().toISOString().split('T')[0];
 
-        if(type && amount && date && approved){
-            if(editingExpenseRow){
-                editingExpenseRow.cells[0].innerText = type;
-                editingExpenseRow.cells[1].innerText = amount;
-                editingExpenseRow.cells[2].innerText = date;
-                editingExpenseRow.cells[3].innerText = approved;
+    if (type && amount && approved) {
+        const data = {
+            type: type,   // ✅ FIXED
+            amount: parseFloat(amount),
+            approvedBy: approved,
+            date: today
+        };
+
+        fetch('/manager/add-expense', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.text())
+        .then(result => {
+            if (result === "SUCCESS") {
+                location.reload();
             } else {
-                let table = document.getElementById("expenseTable").getElementsByTagName('tbody')[0];
-                let row = table.insertRow();
-                row.innerHTML = `
-                    <td>${type}</td>
-                    <td>${amount}</td>
-                    <td>${date}</td>
-                    <td>${approved}</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editExpenseRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteExpenseRow(this)" title="Delete"></i>
-                    </td>
-                `;
+                alert("Failed to save");
             }
-            closeExpenseModal();
-        } else {
-            alert("Please fill all fields");
-        }
+        });
+    } else {
+        alert("Please fill all fields");
     }
+}
 
-    function editExpenseRow(btn){
-        let row = btn.parentElement.parentElement;
-        openExpenseModal(row);
-    }
+   function editBill(id) {
+       // Find the table row that contains this specific ID
+       const table = document.getElementById("flatTable");
+       const rows = table.getElementsByTagName("tr");
+       let targetRow = null;
+
+       // Loop through rows to find the one matching the ID (using the onclick attribute as a hint)
+       for (let i = 1; i < rows.length; i++) {
+           if (rows[i].innerHTML.includes("editBill('" + id + "')")) {
+               targetRow = rows[i];
+               break;
+           }
+       }
+
+       if (targetRow) {
+           // Fill the modal fields with the data from the table cells
+           document.getElementById("flatNumber").value = targetRow.cells[0].innerText;
+           document.getElementById("flatOwner").value = targetRow.cells[1].innerText;
+           // Clean the "Rs." prefix from the amount
+           document.getElementById("flatAmount").value = targetRow.cells[2].innerText.replace('Rs. ', '');
+           document.getElementById("flatDueDate").value = targetRow.cells[3].innerText;
+           document.getElementById("flatStatus").value = targetRow.cells[4].innerText;
+
+           // Change modal title and show it
+           document.getElementById("flatModalTitle").innerText = "Edit Entry";
+           document.getElementById("flatModal").style.display = "flex";
+
+           // Store the ID globally so saveFlatEntry knows it's an update
+           window.currentEditingId = id;
+       }
+   }
 
     function deleteExpenseRow(btn){
         if(confirm("Are you sure you want to delete this expense?")){
@@ -310,42 +329,59 @@
         editingRow = null;
     }
 
-    function saveFlatEntry(){
-        let flat = document.getElementById("flatNumber").value;
-        let owner = document.getElementById("flatOwner").value;
-        let amount = document.getElementById("flatAmount").value;
-        let due = document.getElementById("flatDueDate").value;
-        let status = document.getElementById("flatStatus").value;
+  function saveFlatEntry() {
+      const flat = document.getElementById("flatNumber").value;
+      const owner = document.getElementById("flatOwner").value;
+      const amount = document.getElementById("flatAmount").value;
+      const due = document.getElementById("flatDueDate").value;
+      const status = document.getElementById("flatStatus").value;
 
-        if(flat && owner && amount && due && status){
-            if(editingRow){
-                editingRow.cells[0].innerText = flat;
-                editingRow.cells[1].innerText = owner;
-                editingRow.cells[2].innerText = amount;
-                editingRow.cells[3].innerText = due;
-                editingRow.cells[4].innerText = status;
-                editingRow.cells[4].className = `status-${status.toLowerCase()}`;
-            } else {
-                let table = document.getElementById("flatTable").getElementsByTagName('tbody')[0];
-                let row = table.insertRow();
-                row.innerHTML = `
-                    <td>${flat}</td>
-                    <td>${owner}</td>
-                    <td>${amount}</td>
-                    <td>${due}</td>
-                    <td class="status-${status.toLowerCase()}">${status}</td>
-                    <td>
-                        <i class="fa fa-pencil edit-icon" onclick="editFlatRow(this)" title="Edit"></i>
-                        <i class="fa fa-trash delete-icon" onclick="deleteFlatRow(this)" title="Delete"></i>
-                    </td>
-                `;
-            }
-            closeFlatModal();
-        } else {
-            alert("Please fill all fields");
-        }
-    }
+      if (flat && owner && amount) {
 
+          const data = {
+              id: window.currentEditingId || null,
+              flatNumber: flat.trim().toUpperCase(),   // ✅ IMPORTANT (match DB like C-101)
+              ownerName: owner,
+
+              // 🔥 ONLY THIS MATTERS
+              monthlyMaintenance: parseFloat(amount),
+
+              // keep as is
+              parkingCharges: 0.0,
+              waterCharges: 0.0,
+
+              billingMonth: due,
+              status: status
+          };
+
+          fetch('/manager/add-maintenance-entry', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+          })
+          .then(res => res.text())
+          .then(result => {
+              if (result === "SUCCESS") {
+                  window.currentEditingId = null;
+                  location.reload();
+              } else {
+                  alert("Error saving entry");
+              }
+          });
+
+      } else {
+          alert("Please fill Flat, Owner, and Amount.");
+      }
+  }
+   function confirmDelete(id) {
+       if (!id || id === 'undefined') {
+           alert("Invalid ID. Try refreshing.");
+           return;
+       }
+       if (confirm("Permanently delete this bill?")) {
+           window.location.href = "/manager/delete-maintenance/" + id;
+       }
+   }
     function editFlatRow(btn){
         let row = btn.parentElement.parentElement;
         openFlatModal(row);
@@ -355,7 +391,65 @@
         if(confirm("Are you sure you want to delete this entry?")){
             btn.parentElement.parentElement.remove();
         }
+
     }
+   function confirmDelete(id) {
+       // This check is key: if id is missing, it won't trigger a 404
+       if (!id || id === 'undefined' || id === '') {
+           alert("Cannot delete: Row ID is missing. Try refreshing the page.");
+           return;
+       }
+
+       if (confirm("Are you sure you want to permanently delete this record?")) {
+           // We hardcode /manager/ because that's your @RequestMapping
+           window.location.href = "/manager/delete-maintenance/" + id;
+       }
+   }
+  function saveExpense() {
+      const type = document.getElementById("expenseType").value;
+      const amount = document.getElementById("expenseAmount").value;
+      const approved = document.getElementById("approvedBy").value;
+
+      // Ensure the date is in YYYY-MM-DD format
+      const today = new Date().toISOString().split('T')[0];
+
+      if (type && amount && approved) {
+          const data = {
+              type: type,
+              amount: parseFloat(amount),
+              approvedBy: approved,
+              date: today // Use the formatted ISO date
+          };
+
+          fetch('/manager/add-expense', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+          })
+          .then(res => res.text())
+          .then(result => {
+              if (result === "SUCCESS") {
+                  location.reload();
+              } else {
+                  alert("Failed to save: Check if the backend received the data correctly.");
+              }
+          })
+          .catch(err => console.error("Error:", err));
+      } else {
+          alert("Please fill all fields");
+      }
+  }
+  function deleteExpense(id) {
+      if (!id || id === 'undefined') {
+          alert("Invalid ID. Try refreshing.");
+          return;
+      }
+
+      if (confirm("Are you sure you want to delete this expense?")) {
+          window.location.href = "<%= request.getContextPath() %>/manager/delete-expense/" + id;
+      }
+  }
+
 </script>
 
 </body>

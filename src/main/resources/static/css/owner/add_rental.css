@@ -10,7 +10,7 @@ body {
     color: var(--white);
 }
 
-.brand{ margin-top: 60px; text-align:center; }
+.brand{  text-align:center; }
 .brand h1{ font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 6px; font-weight: 700; font-size: 40px; }
 
 .form-box{
@@ -28,13 +28,24 @@ body {
 .tagline{ text-align:center; font-size:13px; letter-spacing:2px; color: rgba(255,255,255,0.6); margin-bottom:30px; }
 .section-title{ color: white; font-weight: 600; }
 
-label{ margin-top:10px; font-weight:500; font-size:13px; color: var(--gold); letter-spacing:1px; text-transform: uppercase; }
+label{ margin-top:10px; font-weight:500; font-size:13px; color: var(--gold); letter-spacing:1px;  }
 
 .form-control{
     background: rgba(255,255,255,0.05); color:white;
     border:1px solid rgba(255,255,255,0.1); border-radius:0; padding:12px;
 }
+.op{
+color:black;
+}
+select option {
+  background-color: #f0f0f0; /* Light gray background */
+  color: #333;               /* Dark text */
+}
 
+.highlight-option {
+  background-color: #ffeb3b; /* Yellow background */
+  color: black;
+}
 .form-control::placeholder{ color: rgba(255,255,255,0.4); }
 .form-control:focus{
     background: rgba(255,255,255,0.08); border-color: var(--gold);

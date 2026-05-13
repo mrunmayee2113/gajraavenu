@@ -41,7 +41,7 @@ body {
 }
 
 
-.form-control:focus, .form-select:focus {
+.form-control:focus, .form-box:focus {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--gold);
     box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);

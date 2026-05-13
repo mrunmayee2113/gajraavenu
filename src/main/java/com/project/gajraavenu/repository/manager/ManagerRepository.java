@@ -8,17 +8,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ManagerRepository extends JpaRepository<residents, Long> {
 
+    // 👥 TOTAL RESIDENTS
     @Query("SELECT COUNT(r) FROM residents r")
     long countAllResidents();
 
-    // Changed 'complaints' to match your entity class name if it is 'complaints'
-    @Query("SELECT COUNT(c) FROM complaints c WHERE c.status != 'Resolved'")
+    // ⚠ ACTIVE COMPLAINTS
+    @Query("SELECT COUNT(c) FROM Complaint c WHERE c.status != 'Resolved'")
     long countOpenComplaints();
 
+    // 🚪 PENDING VISITORS
     @Query("SELECT COUNT(v) FROM visitors v WHERE v.exitTime IS NULL")
     long countPendingVisitors();
 
-    // If 'maintenance' class doesn't exist yet, comment this line out to bypass the error
-    @Query("SELECT SUM(m.amount) FROM maintenance m WHERE m.status = 'Paid'")
+    // 💰 TOTAL REVENUE
+    @Query("SELECT SUM(m.totalAmount) FROM Maintenance m WHERE m.status = 'PAID'")
     Double calculateTotalRevenue();
 }

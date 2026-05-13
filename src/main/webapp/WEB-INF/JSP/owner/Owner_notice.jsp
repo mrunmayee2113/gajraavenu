@@ -23,33 +23,8 @@
 
 <div class="container">
 
-    <div class="filter-bar mb-5 mt-4">
-        <div class="row g-3 justify-content-center">
-            <div class="col-md-4">
-                <div class="input-group custom-input">
-                    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search notices...">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <select id="categoryFilter" class="form-select custom-select">
-                    <option value="all">All Categories</option>
-                    <option value="Meeting">Meeting</option>
-                    <option value="Security">Security</option>
-                    <option value="Maintenance">Maintenance</option>
-                    <option value="Festival">Festival</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select id="sortOption" class="form-select custom-select">
-                    <option value="latest">Sort by Latest</option>
-                    <option value="oldest">Sort by Oldest</option>
-                </select>
-            </div>
-        </div>
-    </div>
 
-    <div class="row g-4" id="noticeContainer">
+    <div class=" mb-5 mt-4 row g-4" id="noticeContainer">
 
         <c:forEach var="n" items="${notices}">
             <div class="col-lg-4 col-md-6 notice-item-card d-flex"

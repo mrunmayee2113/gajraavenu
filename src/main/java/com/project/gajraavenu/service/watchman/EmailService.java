@@ -1,0 +1,31 @@
+package com.project.gajraavenu.service.watchman;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+@Service
+public class EmailService {
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendEmail(String to, String subject, String text) {
+
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("mrunmayeejadhav588@gmail.com"); // ✅ IMPORTANT
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(text);
+
+            mailSender.send(message);
+
+            System.out.println("✅ Email sent to " + to);
+
+        } catch (Exception e) {
+            System.out.println("❌ Email failed:");
+            e.printStackTrace();
+        }
+    }
+}

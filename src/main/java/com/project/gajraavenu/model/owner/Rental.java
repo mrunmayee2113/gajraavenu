@@ -2,6 +2,8 @@ package com.project.gajraavenu.model.owner;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "rentals")
 public class Rental {
@@ -15,6 +17,16 @@ public class Rental {
     private String rentAmount;
     private String flatType;
     private String description;
+    @ElementCollection
+    private List<String> imagePaths;
+
+    public List<String> getImagePaths() {
+        return imagePaths;
+    }
+
+    public void setImagePaths(List<String> imagePaths) {
+        this.imagePaths = imagePaths;
+    }
 
     public Rental() {}
 

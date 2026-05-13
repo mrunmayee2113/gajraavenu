@@ -208,11 +208,18 @@
 
 
 <script>
-    document.getElementById("alertbtn").addEventListener("click", function() {
-        if (confirm("Are you sure you want to broadcast emergency alert to all residents?")) {
-            alert(" Emergency Alert Sent to All Residents!");
-        }
-    });
+   document.getElementById("alertbtn").addEventListener("click", function() {
+
+       if (confirm("Send emergency alert to all residents?")) {
+
+           fetch("/watchman/broadcast-alert", {
+               method: "POST"
+           })
+           .then(res => res.text())
+           .then(msg => alert(msg))
+           .catch(() => alert("Error sending emails"));
+       }
+   });
 </script>
 
 </body>
