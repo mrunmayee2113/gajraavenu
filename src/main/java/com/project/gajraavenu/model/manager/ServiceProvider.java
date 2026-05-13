@@ -3,17 +3,21 @@ package com.project.gajraavenu.model.manager;
 import jakarta.persistence.*;
 
 @Entity
-public class serviceprovider {
+@Table(name = "service_providers")
+public class ServiceProvider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String serviceType;
+    private String serviceType; // e.g., Plumber, Electrician
     private String contact;
     private String location;
 
+    public ServiceProvider() {}
+
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
