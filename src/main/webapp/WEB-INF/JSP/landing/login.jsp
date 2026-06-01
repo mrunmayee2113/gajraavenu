@@ -44,9 +44,7 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mb-4">
-            <a href="#" class="link small">Forgot Password?</a>
-        </div>
+
 
         <button type="submit" class="btn btn-main w-100">Login</button>
         <div class="text-danger text-center">
