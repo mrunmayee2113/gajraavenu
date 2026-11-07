@@ -77,6 +77,7 @@
 
 
 </div>
+//payment
 
 <!-- SCRIPT -->
 
